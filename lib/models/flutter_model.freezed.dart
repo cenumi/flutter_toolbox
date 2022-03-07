@@ -118,8 +118,7 @@ class __$FlutterSettingsInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FlutterSettingsInfo extends _FlutterSettingsInfo
-    with DiagnosticableTreeMixin {
+class _$_FlutterSettingsInfo extends _FlutterSettingsInfo {
   const _$_FlutterSettingsInfo(
       {required this.analyticsEnabled, required this.platforms})
       : super._();
@@ -130,17 +129,8 @@ class _$_FlutterSettingsInfo extends _FlutterSettingsInfo
   final Map<SupportedPlatform, bool> platforms;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'FlutterSettingsInfo(analyticsEnabled: $analyticsEnabled, platforms: $platforms)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'FlutterSettingsInfo'))
-      ..add(DiagnosticsProperty('analyticsEnabled', analyticsEnabled))
-      ..add(DiagnosticsProperty('platforms', platforms));
   }
 
   @override
@@ -380,8 +370,7 @@ class __$FlutterVersionInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FlutterVersionInfo extends _FlutterVersionInfo
-    with DiagnosticableTreeMixin {
+class _$_FlutterVersionInfo extends _FlutterVersionInfo {
   const _$_FlutterVersionInfo(
       {required this.flutterVersion,
       required this.branch,
@@ -411,23 +400,8 @@ class _$_FlutterVersionInfo extends _FlutterVersionInfo
   final String devToolsVersion;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'FlutterVersionInfo(flutterVersion: $flutterVersion, branch: $branch, repo: $repo, framework: $framework, frameworkTime: $frameworkTime, engine: $engine, dartVersion: $dartVersion, devToolsVersion: $devToolsVersion)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'FlutterVersionInfo'))
-      ..add(DiagnosticsProperty('flutterVersion', flutterVersion))
-      ..add(DiagnosticsProperty('branch', branch))
-      ..add(DiagnosticsProperty('repo', repo))
-      ..add(DiagnosticsProperty('framework', framework))
-      ..add(DiagnosticsProperty('frameworkTime', frameworkTime))
-      ..add(DiagnosticsProperty('engine', engine))
-      ..add(DiagnosticsProperty('dartVersion', dartVersion))
-      ..add(DiagnosticsProperty('devToolsVersion', devToolsVersion));
   }
 
   @override

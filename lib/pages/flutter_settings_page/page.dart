@@ -4,8 +4,6 @@ import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/models/flutter_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-part 'state.dart';
-
 class FlutterSettingsPage extends StatelessWidget {
   const FlutterSettingsPage({Key? key}) : super(key: key);
 
@@ -49,7 +47,7 @@ class _FlutterInfoList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final path = ref.watch(flutterServiceProvider.select((value) => value.flutterPath));
+    final path = ref.watch(appServiceProvider.select((value) => value.flutterPath));
     final flutterInfo = ref.watch(flutterServiceProvider.select((value) => value.flutterVersionInfo));
 
     const unknown = 'UNKNOWN';
@@ -59,7 +57,8 @@ class _FlutterInfoList extends ConsumerWidget {
         ListTile(
           title: const Text('Path'),
           subtitle: Text(path ?? 'UNSET'),
-          onTap: () => ref.read(flutterServiceProvider.notifier).setFlutterPath(),
+          onTap: () => ref.read(appServiceProvider.notifier).setFlutterPath(),
+          trailing: const Icon(Icons.folder_open),
         ),
         ListTile(
           title: Row(

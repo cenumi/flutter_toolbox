@@ -66,6 +66,9 @@ dependencies:
   # https://pub.dev/packages/process
   process: ^4.2.4
 
+  # https://pub.dev/packages/pub_semver
+  pub_semver: ^2.1.0
+
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.0.13
 

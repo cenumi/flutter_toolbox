@@ -15,15 +15,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$FlutterServiceValuesTearOff {
-  const _$FlutterServiceValuesTearOff();
+class _$FlutterServiceDataTearOff {
+  const _$FlutterServiceDataTearOff();
 
-  _FlutterServiceValues call(
-      {String? flutterPath,
-      FlutterVersionInfo? flutterVersionInfo,
+  _FlutterServiceData call(
+      {FlutterVersionInfo? flutterVersionInfo,
       FlutterSettingsInfo? flutterSettingsInfo}) {
-    return _FlutterServiceValues(
-      flutterPath: flutterPath,
+    return _FlutterServiceData(
       flutterVersionInfo: flutterVersionInfo,
       flutterSettingsInfo: flutterSettingsInfo,
     );
@@ -31,29 +29,27 @@ class _$FlutterServiceValuesTearOff {
 }
 
 /// @nodoc
-const $FlutterServiceValues = _$FlutterServiceValuesTearOff();
+const $FlutterServiceData = _$FlutterServiceDataTearOff();
 
 /// @nodoc
-mixin _$FlutterServiceValues {
-  String? get flutterPath => throw _privateConstructorUsedError;
+mixin _$FlutterServiceData {
   FlutterVersionInfo? get flutterVersionInfo =>
       throw _privateConstructorUsedError;
   FlutterSettingsInfo? get flutterSettingsInfo =>
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FlutterServiceValuesCopyWith<FlutterServiceValues> get copyWith =>
+  $FlutterServiceDataCopyWith<FlutterServiceData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FlutterServiceValuesCopyWith<$Res> {
-  factory $FlutterServiceValuesCopyWith(FlutterServiceValues value,
-          $Res Function(FlutterServiceValues) then) =
-      _$FlutterServiceValuesCopyWithImpl<$Res>;
+abstract class $FlutterServiceDataCopyWith<$Res> {
+  factory $FlutterServiceDataCopyWith(
+          FlutterServiceData value, $Res Function(FlutterServiceData) then) =
+      _$FlutterServiceDataCopyWithImpl<$Res>;
   $Res call(
-      {String? flutterPath,
-      FlutterVersionInfo? flutterVersionInfo,
+      {FlutterVersionInfo? flutterVersionInfo,
       FlutterSettingsInfo? flutterSettingsInfo});
 
   $FlutterVersionInfoCopyWith<$Res>? get flutterVersionInfo;
@@ -61,25 +57,20 @@ abstract class $FlutterServiceValuesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FlutterServiceValuesCopyWithImpl<$Res>
-    implements $FlutterServiceValuesCopyWith<$Res> {
-  _$FlutterServiceValuesCopyWithImpl(this._value, this._then);
+class _$FlutterServiceDataCopyWithImpl<$Res>
+    implements $FlutterServiceDataCopyWith<$Res> {
+  _$FlutterServiceDataCopyWithImpl(this._value, this._then);
 
-  final FlutterServiceValues _value;
+  final FlutterServiceData _value;
   // ignore: unused_field
-  final $Res Function(FlutterServiceValues) _then;
+  final $Res Function(FlutterServiceData) _then;
 
   @override
   $Res call({
-    Object? flutterPath = freezed,
     Object? flutterVersionInfo = freezed,
     Object? flutterSettingsInfo = freezed,
   }) {
     return _then(_value.copyWith(
-      flutterPath: flutterPath == freezed
-          ? _value.flutterPath
-          : flutterPath // ignore: cast_nullable_to_non_nullable
-              as String?,
       flutterVersionInfo: flutterVersionInfo == freezed
           ? _value.flutterVersionInfo
           : flutterVersionInfo // ignore: cast_nullable_to_non_nullable
@@ -117,15 +108,14 @@ class _$FlutterServiceValuesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FlutterServiceValuesCopyWith<$Res>
-    implements $FlutterServiceValuesCopyWith<$Res> {
-  factory _$FlutterServiceValuesCopyWith(_FlutterServiceValues value,
-          $Res Function(_FlutterServiceValues) then) =
-      __$FlutterServiceValuesCopyWithImpl<$Res>;
+abstract class _$FlutterServiceDataCopyWith<$Res>
+    implements $FlutterServiceDataCopyWith<$Res> {
+  factory _$FlutterServiceDataCopyWith(
+          _FlutterServiceData value, $Res Function(_FlutterServiceData) then) =
+      __$FlutterServiceDataCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? flutterPath,
-      FlutterVersionInfo? flutterVersionInfo,
+      {FlutterVersionInfo? flutterVersionInfo,
       FlutterSettingsInfo? flutterSettingsInfo});
 
   @override
@@ -135,27 +125,22 @@ abstract class _$FlutterServiceValuesCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FlutterServiceValuesCopyWithImpl<$Res>
-    extends _$FlutterServiceValuesCopyWithImpl<$Res>
-    implements _$FlutterServiceValuesCopyWith<$Res> {
-  __$FlutterServiceValuesCopyWithImpl(
-      _FlutterServiceValues _value, $Res Function(_FlutterServiceValues) _then)
-      : super(_value, (v) => _then(v as _FlutterServiceValues));
+class __$FlutterServiceDataCopyWithImpl<$Res>
+    extends _$FlutterServiceDataCopyWithImpl<$Res>
+    implements _$FlutterServiceDataCopyWith<$Res> {
+  __$FlutterServiceDataCopyWithImpl(
+      _FlutterServiceData _value, $Res Function(_FlutterServiceData) _then)
+      : super(_value, (v) => _then(v as _FlutterServiceData));
 
   @override
-  _FlutterServiceValues get _value => super._value as _FlutterServiceValues;
+  _FlutterServiceData get _value => super._value as _FlutterServiceData;
 
   @override
   $Res call({
-    Object? flutterPath = freezed,
     Object? flutterVersionInfo = freezed,
     Object? flutterSettingsInfo = freezed,
   }) {
-    return _then(_FlutterServiceValues(
-      flutterPath: flutterPath == freezed
-          ? _value.flutterPath
-          : flutterPath // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(_FlutterServiceData(
       flutterVersionInfo: flutterVersionInfo == freezed
           ? _value.flutterVersionInfo
           : flutterVersionInfo // ignore: cast_nullable_to_non_nullable
@@ -170,41 +155,26 @@ class __$FlutterServiceValuesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FlutterServiceValues extends _FlutterServiceValues
-    with DiagnosticableTreeMixin {
-  const _$_FlutterServiceValues(
-      {this.flutterPath, this.flutterVersionInfo, this.flutterSettingsInfo})
+class _$_FlutterServiceData extends _FlutterServiceData {
+  const _$_FlutterServiceData(
+      {this.flutterVersionInfo, this.flutterSettingsInfo})
       : super._();
 
-  @override
-  final String? flutterPath;
   @override
   final FlutterVersionInfo? flutterVersionInfo;
   @override
   final FlutterSettingsInfo? flutterSettingsInfo;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'FlutterServiceValues(flutterPath: $flutterPath, flutterVersionInfo: $flutterVersionInfo, flutterSettingsInfo: $flutterSettingsInfo)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'FlutterServiceValues'))
-      ..add(DiagnosticsProperty('flutterPath', flutterPath))
-      ..add(DiagnosticsProperty('flutterVersionInfo', flutterVersionInfo))
-      ..add(DiagnosticsProperty('flutterSettingsInfo', flutterSettingsInfo));
+  String toString() {
+    return 'FlutterServiceData(flutterVersionInfo: $flutterVersionInfo, flutterSettingsInfo: $flutterSettingsInfo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FlutterServiceValues &&
-            const DeepCollectionEquality()
-                .equals(other.flutterPath, flutterPath) &&
+            other is _FlutterServiceData &&
             const DeepCollectionEquality()
                 .equals(other.flutterVersionInfo, flutterVersionInfo) &&
             const DeepCollectionEquality()
@@ -214,32 +184,27 @@ class _$_FlutterServiceValues extends _FlutterServiceValues
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(flutterPath),
       const DeepCollectionEquality().hash(flutterVersionInfo),
       const DeepCollectionEquality().hash(flutterSettingsInfo));
 
   @JsonKey(ignore: true)
   @override
-  _$FlutterServiceValuesCopyWith<_FlutterServiceValues> get copyWith =>
-      __$FlutterServiceValuesCopyWithImpl<_FlutterServiceValues>(
-          this, _$identity);
+  _$FlutterServiceDataCopyWith<_FlutterServiceData> get copyWith =>
+      __$FlutterServiceDataCopyWithImpl<_FlutterServiceData>(this, _$identity);
 }
 
-abstract class _FlutterServiceValues extends FlutterServiceValues {
-  const factory _FlutterServiceValues(
-      {String? flutterPath,
-      FlutterVersionInfo? flutterVersionInfo,
-      FlutterSettingsInfo? flutterSettingsInfo}) = _$_FlutterServiceValues;
-  const _FlutterServiceValues._() : super._();
+abstract class _FlutterServiceData extends FlutterServiceData {
+  const factory _FlutterServiceData(
+      {FlutterVersionInfo? flutterVersionInfo,
+      FlutterSettingsInfo? flutterSettingsInfo}) = _$_FlutterServiceData;
+  const _FlutterServiceData._() : super._();
 
-  @override
-  String? get flutterPath;
   @override
   FlutterVersionInfo? get flutterVersionInfo;
   @override
   FlutterSettingsInfo? get flutterSettingsInfo;
   @override
   @JsonKey(ignore: true)
-  _$FlutterServiceValuesCopyWith<_FlutterServiceValues> get copyWith =>
+  _$FlutterServiceDataCopyWith<_FlutterServiceData> get copyWith =>
       throw _privateConstructorUsedError;
 }

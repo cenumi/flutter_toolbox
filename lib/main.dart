@@ -16,7 +16,7 @@ class ToolboxApp extends StatelessWidget {
     return ProviderScope(
       child: Consumer(
         builder: (context, ref, _) {
-          final globalService = ref.watch(globalServiceProvider);
+          final globalService = ref.watch(globalsProvider);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Toolbox',
