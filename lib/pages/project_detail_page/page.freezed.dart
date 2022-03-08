@@ -18,16 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$_ProjectDetailStateTearOff {
   const _$_ProjectDetailStateTearOff();
 
-  __ProjectDetailState call(
-      {Pubspec? pubspec,
-      Map<String, Dependency>? shouldUpdateDependencies,
-      Map<String, String>? updateAbleStableVersion,
-      Map<String, String>? updateAblePreReleaseVersion}) {
+  __ProjectDetailState call({Pubspec? pubspec}) {
     return __ProjectDetailState(
       pubspec: pubspec,
-      shouldUpdateDependencies: shouldUpdateDependencies,
-      updateAbleStableVersion: updateAbleStableVersion,
-      updateAblePreReleaseVersion: updateAblePreReleaseVersion,
     );
   }
 }
@@ -38,12 +31,6 @@ const _$ProjectDetailState = _$_ProjectDetailStateTearOff();
 /// @nodoc
 mixin _$_ProjectDetailState {
   Pubspec? get pubspec => throw _privateConstructorUsedError;
-  Map<String, Dependency>? get shouldUpdateDependencies =>
-      throw _privateConstructorUsedError;
-  Map<String, String>? get updateAbleStableVersion =>
-      throw _privateConstructorUsedError;
-  Map<String, String>? get updateAblePreReleaseVersion =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   _$ProjectDetailStateCopyWith<_ProjectDetailState> get copyWith =>
@@ -55,11 +42,7 @@ abstract class _$ProjectDetailStateCopyWith<$Res> {
   factory _$ProjectDetailStateCopyWith(
           _ProjectDetailState value, $Res Function(_ProjectDetailState) then) =
       __$ProjectDetailStateCopyWithImpl<$Res>;
-  $Res call(
-      {Pubspec? pubspec,
-      Map<String, Dependency>? shouldUpdateDependencies,
-      Map<String, String>? updateAbleStableVersion,
-      Map<String, String>? updateAblePreReleaseVersion});
+  $Res call({Pubspec? pubspec});
 }
 
 /// @nodoc
@@ -74,27 +57,12 @@ class __$ProjectDetailStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pubspec = freezed,
-    Object? shouldUpdateDependencies = freezed,
-    Object? updateAbleStableVersion = freezed,
-    Object? updateAblePreReleaseVersion = freezed,
   }) {
     return _then(_value.copyWith(
       pubspec: pubspec == freezed
           ? _value.pubspec
           : pubspec // ignore: cast_nullable_to_non_nullable
               as Pubspec?,
-      shouldUpdateDependencies: shouldUpdateDependencies == freezed
-          ? _value.shouldUpdateDependencies
-          : shouldUpdateDependencies // ignore: cast_nullable_to_non_nullable
-              as Map<String, Dependency>?,
-      updateAbleStableVersion: updateAbleStableVersion == freezed
-          ? _value.updateAbleStableVersion
-          : updateAbleStableVersion // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-      updateAblePreReleaseVersion: updateAblePreReleaseVersion == freezed
-          ? _value.updateAblePreReleaseVersion
-          : updateAblePreReleaseVersion // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
     ));
   }
 }
@@ -106,11 +74,7 @@ abstract class _$_ProjectDetailStateCopyWith<$Res>
           $Res Function(__ProjectDetailState) then) =
       __$_ProjectDetailStateCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {Pubspec? pubspec,
-      Map<String, Dependency>? shouldUpdateDependencies,
-      Map<String, String>? updateAbleStableVersion,
-      Map<String, String>? updateAblePreReleaseVersion});
+  $Res call({Pubspec? pubspec});
 }
 
 /// @nodoc
@@ -127,27 +91,12 @@ class __$_ProjectDetailStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? pubspec = freezed,
-    Object? shouldUpdateDependencies = freezed,
-    Object? updateAbleStableVersion = freezed,
-    Object? updateAblePreReleaseVersion = freezed,
   }) {
     return _then(__ProjectDetailState(
       pubspec: pubspec == freezed
           ? _value.pubspec
           : pubspec // ignore: cast_nullable_to_non_nullable
               as Pubspec?,
-      shouldUpdateDependencies: shouldUpdateDependencies == freezed
-          ? _value.shouldUpdateDependencies
-          : shouldUpdateDependencies // ignore: cast_nullable_to_non_nullable
-              as Map<String, Dependency>?,
-      updateAbleStableVersion: updateAbleStableVersion == freezed
-          ? _value.updateAbleStableVersion
-          : updateAbleStableVersion // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-      updateAblePreReleaseVersion: updateAblePreReleaseVersion == freezed
-          ? _value.updateAblePreReleaseVersion
-          : updateAblePreReleaseVersion // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
     ));
   }
 }
@@ -155,25 +104,14 @@ class __$_ProjectDetailStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$__ProjectDetailState extends __ProjectDetailState {
-  const _$__ProjectDetailState(
-      {this.pubspec,
-      this.shouldUpdateDependencies,
-      this.updateAbleStableVersion,
-      this.updateAblePreReleaseVersion})
-      : super._();
+  const _$__ProjectDetailState({this.pubspec}) : super._();
 
   @override
   final Pubspec? pubspec;
-  @override
-  final Map<String, Dependency>? shouldUpdateDependencies;
-  @override
-  final Map<String, String>? updateAbleStableVersion;
-  @override
-  final Map<String, String>? updateAblePreReleaseVersion;
 
   @override
   String toString() {
-    return '_ProjectDetailState(pubspec: $pubspec, shouldUpdateDependencies: $shouldUpdateDependencies, updateAbleStableVersion: $updateAbleStableVersion, updateAblePreReleaseVersion: $updateAblePreReleaseVersion)';
+    return '_ProjectDetailState(pubspec: $pubspec)';
   }
 
   @override
@@ -181,23 +119,12 @@ class _$__ProjectDetailState extends __ProjectDetailState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is __ProjectDetailState &&
-            const DeepCollectionEquality().equals(other.pubspec, pubspec) &&
-            const DeepCollectionEquality().equals(
-                other.shouldUpdateDependencies, shouldUpdateDependencies) &&
-            const DeepCollectionEquality().equals(
-                other.updateAbleStableVersion, updateAbleStableVersion) &&
-            const DeepCollectionEquality().equals(
-                other.updateAblePreReleaseVersion,
-                updateAblePreReleaseVersion));
+            const DeepCollectionEquality().equals(other.pubspec, pubspec));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(pubspec),
-      const DeepCollectionEquality().hash(shouldUpdateDependencies),
-      const DeepCollectionEquality().hash(updateAbleStableVersion),
-      const DeepCollectionEquality().hash(updateAblePreReleaseVersion));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(pubspec));
 
   @JsonKey(ignore: true)
   @override
@@ -207,22 +134,12 @@ class _$__ProjectDetailState extends __ProjectDetailState {
 }
 
 abstract class __ProjectDetailState extends _ProjectDetailState {
-  const factory __ProjectDetailState(
-          {Pubspec? pubspec,
-          Map<String, Dependency>? shouldUpdateDependencies,
-          Map<String, String>? updateAbleStableVersion,
-          Map<String, String>? updateAblePreReleaseVersion}) =
+  const factory __ProjectDetailState({Pubspec? pubspec}) =
       _$__ProjectDetailState;
   const __ProjectDetailState._() : super._();
 
   @override
   Pubspec? get pubspec;
-  @override
-  Map<String, Dependency>? get shouldUpdateDependencies;
-  @override
-  Map<String, String>? get updateAbleStableVersion;
-  @override
-  Map<String, String>? get updateAblePreReleaseVersion;
   @override
   @JsonKey(ignore: true)
   _$_ProjectDetailStateCopyWith<__ProjectDetailState> get copyWith =>

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/pages/index_page/page.dart';
+import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 
 Future<void> main() async {

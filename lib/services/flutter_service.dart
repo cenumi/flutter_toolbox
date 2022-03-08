@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/models/flutter_model.dart';
+import 'package:flutter_toolbox/services/app_service.dart';
 import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:process/process.dart';
 
 part 'flutter_service.freezed.dart';
+
+final flutterServiceProvider = StateNotifierProvider<FlutterService, FlutterServiceData>(
+  (ref) {
+    final flutterPath = ref.watch(appServiceProvider.select((value) => value.flutterPath));
+    return FlutterService(ref.read, flutterPath);
+  },
+);
 
 @freezed
 class FlutterServiceData with _$FlutterServiceData {

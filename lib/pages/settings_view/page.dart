@@ -1,9 +1,9 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/models/flutter_model.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_toolbox/services/app_service.dart';
+import 'package:flutter_toolbox/services/flutter_service.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);

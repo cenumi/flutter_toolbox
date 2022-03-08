@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 import 'package:process/process.dart';
 
 part 'app_service.freezed.dart';
+
+final appServiceProvider = StateNotifierProvider<AppService, AppServiceData>(
+  (ref) => AppService(ref.read),
+);
 
 @freezed
 class AppServiceData with _$AppServiceData {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final globalsProvider = Provider((_) => GlobalService());
 
 class GlobalService {
   final navigatorKey = GlobalKey<NavigatorState>();

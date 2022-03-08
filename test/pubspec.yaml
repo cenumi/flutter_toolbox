@@ -75,7 +75,7 @@ dependencies:
   process: ^4.2.4
 
   # https://pub.dev/packages/pub_semver
-  pub_semver: ^2.1.0
+  pub_semver: ^2.1.1
 
   # https://pub.dev/packages/pubspec_parse
   pubspec_parse: ^1.2.0
@@ -85,9 +85,6 @@ dependencies:
 
   # https://pub.dev/packages/url_launcher
   url_launcher: ^6.0.20
-
-  # https://pub.dev/packages/yaml_edit
-  yaml_edit: ^2.0.1
 
 
 

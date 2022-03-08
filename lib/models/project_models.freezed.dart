@@ -174,3 +174,262 @@ abstract class _Project extends Project {
   _$ProjectCopyWith<_Project> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$DependencyVersionTearOff {
+  const _$DependencyVersionTearOff();
+
+  _DependencyVersion call(
+      {int? id,
+      @Index(unique: true) required String name,
+      required String stableVersion,
+      required String preReleaseVersion,
+      required bool preReleasing,
+      required DateTime updateTime}) {
+    return _DependencyVersion(
+      id: id,
+      name: name,
+      stableVersion: stableVersion,
+      preReleaseVersion: preReleaseVersion,
+      preReleasing: preReleasing,
+      updateTime: updateTime,
+    );
+  }
+}
+
+/// @nodoc
+const $DependencyVersion = _$DependencyVersionTearOff();
+
+/// @nodoc
+mixin _$DependencyVersion {
+  int? get id => throw _privateConstructorUsedError;
+  @Index(unique: true)
+  String get name => throw _privateConstructorUsedError;
+  String get stableVersion => throw _privateConstructorUsedError;
+  String get preReleaseVersion => throw _privateConstructorUsedError;
+  bool get preReleasing => throw _privateConstructorUsedError;
+  DateTime get updateTime => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DependencyVersionCopyWith<DependencyVersion> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DependencyVersionCopyWith<$Res> {
+  factory $DependencyVersionCopyWith(
+          DependencyVersion value, $Res Function(DependencyVersion) then) =
+      _$DependencyVersionCopyWithImpl<$Res>;
+  $Res call(
+      {int? id,
+      @Index(unique: true) String name,
+      String stableVersion,
+      String preReleaseVersion,
+      bool preReleasing,
+      DateTime updateTime});
+}
+
+/// @nodoc
+class _$DependencyVersionCopyWithImpl<$Res>
+    implements $DependencyVersionCopyWith<$Res> {
+  _$DependencyVersionCopyWithImpl(this._value, this._then);
+
+  final DependencyVersion _value;
+  // ignore: unused_field
+  final $Res Function(DependencyVersion) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? stableVersion = freezed,
+    Object? preReleaseVersion = freezed,
+    Object? preReleasing = freezed,
+    Object? updateTime = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      stableVersion: stableVersion == freezed
+          ? _value.stableVersion
+          : stableVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      preReleaseVersion: preReleaseVersion == freezed
+          ? _value.preReleaseVersion
+          : preReleaseVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      preReleasing: preReleasing == freezed
+          ? _value.preReleasing
+          : preReleasing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      updateTime: updateTime == freezed
+          ? _value.updateTime
+          : updateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$DependencyVersionCopyWith<$Res>
+    implements $DependencyVersionCopyWith<$Res> {
+  factory _$DependencyVersionCopyWith(
+          _DependencyVersion value, $Res Function(_DependencyVersion) then) =
+      __$DependencyVersionCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int? id,
+      @Index(unique: true) String name,
+      String stableVersion,
+      String preReleaseVersion,
+      bool preReleasing,
+      DateTime updateTime});
+}
+
+/// @nodoc
+class __$DependencyVersionCopyWithImpl<$Res>
+    extends _$DependencyVersionCopyWithImpl<$Res>
+    implements _$DependencyVersionCopyWith<$Res> {
+  __$DependencyVersionCopyWithImpl(
+      _DependencyVersion _value, $Res Function(_DependencyVersion) _then)
+      : super(_value, (v) => _then(v as _DependencyVersion));
+
+  @override
+  _DependencyVersion get _value => super._value as _DependencyVersion;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? stableVersion = freezed,
+    Object? preReleaseVersion = freezed,
+    Object? preReleasing = freezed,
+    Object? updateTime = freezed,
+  }) {
+    return _then(_DependencyVersion(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      stableVersion: stableVersion == freezed
+          ? _value.stableVersion
+          : stableVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      preReleaseVersion: preReleaseVersion == freezed
+          ? _value.preReleaseVersion
+          : preReleaseVersion // ignore: cast_nullable_to_non_nullable
+              as String,
+      preReleasing: preReleasing == freezed
+          ? _value.preReleasing
+          : preReleasing // ignore: cast_nullable_to_non_nullable
+              as bool,
+      updateTime: updateTime == freezed
+          ? _value.updateTime
+          : updateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DependencyVersion extends _DependencyVersion {
+  const _$_DependencyVersion(
+      {this.id,
+      @Index(unique: true) required this.name,
+      required this.stableVersion,
+      required this.preReleaseVersion,
+      required this.preReleasing,
+      required this.updateTime})
+      : super._();
+
+  @override
+  final int? id;
+  @override
+  @Index(unique: true)
+  final String name;
+  @override
+  final String stableVersion;
+  @override
+  final String preReleaseVersion;
+  @override
+  final bool preReleasing;
+  @override
+  final DateTime updateTime;
+
+  @override
+  String toString() {
+    return 'DependencyVersion(id: $id, name: $name, stableVersion: $stableVersion, preReleaseVersion: $preReleaseVersion, preReleasing: $preReleasing, updateTime: $updateTime)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _DependencyVersion &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.stableVersion, stableVersion) &&
+            const DeepCollectionEquality()
+                .equals(other.preReleaseVersion, preReleaseVersion) &&
+            const DeepCollectionEquality()
+                .equals(other.preReleasing, preReleasing) &&
+            const DeepCollectionEquality()
+                .equals(other.updateTime, updateTime));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(stableVersion),
+      const DeepCollectionEquality().hash(preReleaseVersion),
+      const DeepCollectionEquality().hash(preReleasing),
+      const DeepCollectionEquality().hash(updateTime));
+
+  @JsonKey(ignore: true)
+  @override
+  _$DependencyVersionCopyWith<_DependencyVersion> get copyWith =>
+      __$DependencyVersionCopyWithImpl<_DependencyVersion>(this, _$identity);
+}
+
+abstract class _DependencyVersion extends DependencyVersion {
+  const factory _DependencyVersion(
+      {int? id,
+      @Index(unique: true) required String name,
+      required String stableVersion,
+      required String preReleaseVersion,
+      required bool preReleasing,
+      required DateTime updateTime}) = _$_DependencyVersion;
+  const _DependencyVersion._() : super._();
+
+  @override
+  int? get id;
+  @override
+  @Index(unique: true)
+  String get name;
+  @override
+  String get stableVersion;
+  @override
+  String get preReleaseVersion;
+  @override
+  bool get preReleasing;
+  @override
+  DateTime get updateTime;
+  @override
+  @JsonKey(ignore: true)
+  _$DependencyVersionCopyWith<_DependencyVersion> get copyWith =>
+      throw _privateConstructorUsedError;
+}

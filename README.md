@@ -2,7 +2,7 @@
 
 Toolbox for Flutter development, provides:
 
-- [ ] Flutter SDK Management
+- [x] Flutter SDK Management
   - [x] Check SDK
   - [x] Config
   - [x] Goto flutter changelog
@@ -10,7 +10,7 @@ Toolbox for Flutter development, provides:
 - [ ] Flutter Project Management
   - [ ] Version
   - [ ] Dependencies
-    - [ ] Update / Beta
+    - [x] Update / Beta
     - [ ] Homepage / Changelog
     - [ ] Overrides
   - [ ] Assets

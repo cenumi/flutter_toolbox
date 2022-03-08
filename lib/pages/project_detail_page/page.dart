@@ -1,13 +1,15 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/core/services.dart';
+import 'package:flutter_toolbox/models/project_models.dart';
+import 'package:flutter_toolbox/services/app_service.dart';
+import 'package:flutter_toolbox/services/global_service.dart';
+import 'package:flutter_toolbox/services/local_storage_service.dart';
 import 'package:flutter_toolbox/services/pub_service.dart';
-import 'package:pub_semver/pub_semver.dart';
-import 'package:pubspec_parse/pubspec_parse.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 part 'state.dart';
 
@@ -34,7 +36,6 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
   int index = 0;
 
   final views = [
-    const _UpdateAbleDependenciesList(),
     const _DependenciesList(),
     const _DevDependenciesList(),
   ];
@@ -42,7 +43,7 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(_viewModelProvider.notifier).load(widget.path);
+    ref.read(_viewModelProvider.notifier).init(widget.path);
   }
 
   @override
@@ -66,7 +67,6 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
         children: [
           NavigationRail(
             destinations: const [
-              NavigationRailDestination(icon: Icon(Icons.update), label: Text('Updates')),
               NavigationRailDestination(icon: Icon(Icons.topic), label: Text('Dependencies')),
               NavigationRailDestination(icon: Icon(Icons.logo_dev), label: Text('Dev Dependencies')),
             ],

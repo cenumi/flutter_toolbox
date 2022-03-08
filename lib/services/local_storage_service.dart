@@ -1,7 +1,9 @@
+import 'package:flutter_toolbox/core/packages.dart';
 import 'package:flutter_toolbox/models/project_models.dart';
-import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+final localStorageServiceProvider = Provider((_) => LocalStorageService());
 
 class LocalStorageService {
   static const dbName = 'flutter_toolbox_db';
@@ -9,7 +11,7 @@ class LocalStorageService {
   static Future<void> init({bool useInspector = false}) async {
     final dir = await getApplicationSupportDirectory();
     await Isar.open(
-      schemas: [ProjectSchema],
+      schemas: [ProjectSchema, DependencyVersionSchema],
       directory: dir.path,
       name: dbName,
       inspector: useInspector,
