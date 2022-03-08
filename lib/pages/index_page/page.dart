@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/pages/flutter_settings_page/page.dart';
-import 'package:flutter_toolbox/pages/projects_page/page.dart';
+import 'package:flutter_toolbox/pages/projects_view/page.dart';
+import 'package:flutter_toolbox/pages/settings_view/page.dart';
 
 class IndexPage extends ConsumerStatefulWidget {
   const IndexPage({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _IndexPageState extends ConsumerState<IndexPage> {
 
   final pages = <Widget>[
     const ProjectsPage(),
-    const FlutterSettingsPage(),
+    const SettingsPage(),
   ];
 
   @override

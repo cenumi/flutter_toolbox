@@ -3,8 +3,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_toolbox/core/services.dart';
 import 'package:flutter_toolbox/pages/index_page/page.dart';
+import 'package:flutter_toolbox/services/local_storage_service.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorageService.init();
   runApp(const ToolboxApp());
 }
 
@@ -27,7 +30,15 @@ class ToolboxApp extends StatelessWidget {
               Locale('en'),
             ],
             localizationsDelegates: GlobalMaterialLocalizations.delegates,
-            theme: ThemeData(useMaterial3: true),
+            theme: ThemeData(
+              useMaterial3: true,
+              appBarTheme: const AppBarTheme(
+                elevation: 0.5,
+                iconTheme: IconThemeData(color: Colors.black),
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.black,
+              ),
+            ),
             home: const IndexPage(),
           );
         },

@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AppServiceDataTearOff {
   const _$AppServiceDataTearOff();
 
-  _AppServiceData call({required String pubBaseUrl, String? flutterPath}) {
+  _AppServiceData call({String? pubBaseURL, String? flutterPath}) {
     return _AppServiceData(
-      pubBaseUrl: pubBaseUrl,
+      pubBaseURL: pubBaseURL,
       flutterPath: flutterPath,
     );
   }
@@ -31,7 +31,7 @@ const $AppServiceData = _$AppServiceDataTearOff();
 
 /// @nodoc
 mixin _$AppServiceData {
-  String get pubBaseUrl => throw _privateConstructorUsedError;
+  String? get pubBaseURL => throw _privateConstructorUsedError;
   String? get flutterPath => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -44,7 +44,7 @@ abstract class $AppServiceDataCopyWith<$Res> {
   factory $AppServiceDataCopyWith(
           AppServiceData value, $Res Function(AppServiceData) then) =
       _$AppServiceDataCopyWithImpl<$Res>;
-  $Res call({String pubBaseUrl, String? flutterPath});
+  $Res call({String? pubBaseURL, String? flutterPath});
 }
 
 /// @nodoc
@@ -58,14 +58,14 @@ class _$AppServiceDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? pubBaseUrl = freezed,
+    Object? pubBaseURL = freezed,
     Object? flutterPath = freezed,
   }) {
     return _then(_value.copyWith(
-      pubBaseUrl: pubBaseUrl == freezed
-          ? _value.pubBaseUrl
-          : pubBaseUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      pubBaseURL: pubBaseURL == freezed
+          ? _value.pubBaseURL
+          : pubBaseURL // ignore: cast_nullable_to_non_nullable
+              as String?,
       flutterPath: flutterPath == freezed
           ? _value.flutterPath
           : flutterPath // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$AppServiceDataCopyWith<$Res>
           _AppServiceData value, $Res Function(_AppServiceData) then) =
       __$AppServiceDataCopyWithImpl<$Res>;
   @override
-  $Res call({String pubBaseUrl, String? flutterPath});
+  $Res call({String? pubBaseURL, String? flutterPath});
 }
 
 /// @nodoc
@@ -97,14 +97,14 @@ class __$AppServiceDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? pubBaseUrl = freezed,
+    Object? pubBaseURL = freezed,
     Object? flutterPath = freezed,
   }) {
     return _then(_AppServiceData(
-      pubBaseUrl: pubBaseUrl == freezed
-          ? _value.pubBaseUrl
-          : pubBaseUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+      pubBaseURL: pubBaseURL == freezed
+          ? _value.pubBaseURL
+          : pubBaseURL // ignore: cast_nullable_to_non_nullable
+              as String?,
       flutterPath: flutterPath == freezed
           ? _value.flutterPath
           : flutterPath // ignore: cast_nullable_to_non_nullable
@@ -115,18 +115,17 @@ class __$AppServiceDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AppServiceData extends _AppServiceData {
-  const _$_AppServiceData({required this.pubBaseUrl, this.flutterPath})
-      : super._();
+class _$_AppServiceData implements _AppServiceData {
+  const _$_AppServiceData({this.pubBaseURL, this.flutterPath});
 
   @override
-  final String pubBaseUrl;
+  final String? pubBaseURL;
   @override
   final String? flutterPath;
 
   @override
   String toString() {
-    return 'AppServiceData(pubBaseUrl: $pubBaseUrl, flutterPath: $flutterPath)';
+    return 'AppServiceData(pubBaseURL: $pubBaseURL, flutterPath: $flutterPath)';
   }
 
   @override
@@ -135,7 +134,7 @@ class _$_AppServiceData extends _AppServiceData {
         (other.runtimeType == runtimeType &&
             other is _AppServiceData &&
             const DeepCollectionEquality()
-                .equals(other.pubBaseUrl, pubBaseUrl) &&
+                .equals(other.pubBaseURL, pubBaseURL) &&
             const DeepCollectionEquality()
                 .equals(other.flutterPath, flutterPath));
   }
@@ -143,7 +142,7 @@ class _$_AppServiceData extends _AppServiceData {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(pubBaseUrl),
+      const DeepCollectionEquality().hash(pubBaseURL),
       const DeepCollectionEquality().hash(flutterPath));
 
   @JsonKey(ignore: true)
@@ -152,13 +151,12 @@ class _$_AppServiceData extends _AppServiceData {
       __$AppServiceDataCopyWithImpl<_AppServiceData>(this, _$identity);
 }
 
-abstract class _AppServiceData extends AppServiceData {
-  const factory _AppServiceData(
-      {required String pubBaseUrl, String? flutterPath}) = _$_AppServiceData;
-  const _AppServiceData._() : super._();
+abstract class _AppServiceData implements AppServiceData {
+  const factory _AppServiceData({String? pubBaseURL, String? flutterPath}) =
+      _$_AppServiceData;
 
   @override
-  String get pubBaseUrl;
+  String? get pubBaseURL;
   @override
   String? get flutterPath;
   @override

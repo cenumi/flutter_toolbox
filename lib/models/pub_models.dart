@@ -16,21 +16,21 @@ class PubVersions with _$PubVersions {
 
   factory PubVersions.fromJson(Map<String, dynamic> json) => _$PubVersionsFromJson(json);
 
-  String? get latestVersion {
+  String get latestVersion {
     for (final version in versions) {
       if (!Version.parse(version).isPreRelease) {
         return version;
       }
     }
-    return null;
+    return '0.0.0';
   }
 
-  String? get latestPreReleaseVersion {
+  String get latestPreReleaseVersion {
     for (final version in versions) {
       if (Version.parse(version).isPreRelease) {
         return version;
       }
     }
-    return null;
+    return '0.0.0-dev.0';
   }
 }

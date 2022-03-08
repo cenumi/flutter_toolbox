@@ -59,9 +59,17 @@ dependencies:
   # https://pub.dev/packages/file_selector
   file_selector: ^0.8.4
 
+  # Database
+  # https://pub.dev/packages/isar
+  isar: &isar_version ^2.2.1
+  isar_flutter_libs: *isar_version
+
   # Log
   # https://pub.dev/packages/logger
   logger: ^1.1.0
+
+  # https://pub.dev/packages/path_provider
+  path_provider: ^2.0.9
 
   # https://pub.dev/packages/process
   process: ^4.2.4
@@ -69,11 +77,15 @@ dependencies:
   # https://pub.dev/packages/pub_semver
   pub_semver: ^2.1.0
 
+  # https://pub.dev/packages/pubspec_parse
+  pubspec_parse: ^1.2.0
+
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^2.0.13
 
   # https://pub.dev/packages/url_launcher
   url_launcher: ^6.0.20
+
 
 
 dev_dependencies:
@@ -89,8 +101,11 @@ dev_dependencies:
   # https://pub.dev/packages/freezed
   freezed: ^1.1.1
 
+  # https://pub.dev/packages/isar
+  isar_generator: *isar_version
+
   # https://pub.dev/packages/json_serializable
-  json_serializable: ^6.1.4
+  json_serializable: ^6.1.5
 
   # https://pub.dev/packages/lint
   lint: ^1.8.2

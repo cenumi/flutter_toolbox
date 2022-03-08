@@ -23,7 +23,7 @@ final flutterServiceProvider = StateNotifierProvider<FlutterService, FlutterServ
 
 final pubServiceProvider = Provider(
   (ref) {
-    final baseUrl = ref.watch(appServiceProvider.select((value) => value.pubBaseUrl));
-    return PubService.create(HttpService(baseUrl));
+    final baseURL = ref.watch(appServiceProvider.select((value) => value.pubBaseURL));
+    return PubService.create(HttpService(baseURL ?? ''));
   },
 );
