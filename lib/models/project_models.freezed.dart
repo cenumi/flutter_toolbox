@@ -18,11 +18,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ProjectTearOff {
   const _$ProjectTearOff();
 
-  _Project call({int? id, String? name, required String path}) {
+  _Project call(
+      {int? id,
+      @Index(unique: true) required String path,
+      required String name,
+      required String description}) {
     return _Project(
       id: id,
-      name: name,
       path: path,
+      name: name,
+      description: description,
     );
   }
 }
@@ -33,8 +38,10 @@ const $Project = _$ProjectTearOff();
 /// @nodoc
 mixin _$Project {
   int? get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  @Index(unique: true)
   String get path => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProjectCopyWith<Project> get copyWith => throw _privateConstructorUsedError;
@@ -44,7 +51,11 @@ mixin _$Project {
 abstract class $ProjectCopyWith<$Res> {
   factory $ProjectCopyWith(Project value, $Res Function(Project) then) =
       _$ProjectCopyWithImpl<$Res>;
-  $Res call({int? id, String? name, String path});
+  $Res call(
+      {int? id,
+      @Index(unique: true) String path,
+      String name,
+      String description});
 }
 
 /// @nodoc
@@ -58,21 +69,26 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
     Object? path = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
       path: path == freezed
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -83,7 +99,11 @@ abstract class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
   factory _$ProjectCopyWith(_Project value, $Res Function(_Project) then) =
       __$ProjectCopyWithImpl<$Res>;
   @override
-  $Res call({int? id, String? name, String path});
+  $Res call(
+      {int? id,
+      @Index(unique: true) String path,
+      String name,
+      String description});
 }
 
 /// @nodoc
@@ -98,21 +118,26 @@ class __$ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
     Object? path = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_Project(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
       path: path == freezed
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -121,18 +146,26 @@ class __$ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Project extends _Project {
-  const _$_Project({this.id, this.name, required this.path}) : super._();
+  const _$_Project(
+      {this.id,
+      @Index(unique: true) required this.path,
+      required this.name,
+      required this.description})
+      : super._();
 
   @override
   final int? id;
   @override
-  final String? name;
-  @override
+  @Index(unique: true)
   final String path;
+  @override
+  final String name;
+  @override
+  final String description;
 
   @override
   String toString() {
-    return 'Project(id: $id, name: $name, path: $path)';
+    return 'Project(id: $id, path: $path, name: $name, description: $description)';
   }
 
   @override
@@ -141,16 +174,19 @@ class _$_Project extends _Project {
         (other.runtimeType == runtimeType &&
             other is _Project &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.path, path) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.path, path));
+            const DeepCollectionEquality()
+                .equals(other.description, description));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(path),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(path));
+      const DeepCollectionEquality().hash(description));
 
   @JsonKey(ignore: true)
   @override
@@ -159,16 +195,22 @@ class _$_Project extends _Project {
 }
 
 abstract class _Project extends Project {
-  const factory _Project({int? id, String? name, required String path}) =
-      _$_Project;
+  const factory _Project(
+      {int? id,
+      @Index(unique: true) required String path,
+      required String name,
+      required String description}) = _$_Project;
   const _Project._() : super._();
 
   @override
   int? get id;
   @override
-  String? get name;
-  @override
+  @Index(unique: true)
   String get path;
+  @override
+  String get name;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
   _$ProjectCopyWith<_Project> get copyWith =>

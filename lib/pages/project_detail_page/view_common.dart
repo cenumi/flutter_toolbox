@@ -61,35 +61,44 @@ class _HostedDependencyItem extends ConsumerWidget {
         final trailingWidgets = <Widget>[];
 
         if (latest != null) {
-          if (!latest.preReleasing && latest.stable > version) {
-            subtitleWidgets.add(Text('${latest.stableVersion} Available  '));
-            trailingWidgets.add(
-              IconButton(
-                onPressed: () => ref
-                    .read(_viewModelProvider.notifier)
-                    .editDependency(name, '^${latest.stableVersion}', isDevDependency: isDevDependency),
-                tooltip: 'Update to latest stable ${latest.stableVersion}',
-                icon: const Icon(Icons.arrow_circle_up),
-              ),
-            );
-          } else if (latest.preReleasing && latest.preRelease > version) {
-            subtitleWidgets.add(Text('${latest.preReleaseVersion} Available'));
-            trailingWidgets.add(
-              IconButton(
-                onPressed: () => ref
-                    .read(_viewModelProvider.notifier)
-                    .editDependency(name, '^${latest.preReleaseVersion}', isDevDependency: isDevDependency),
-                tooltip: 'Update to latest pre release ${latest.preReleaseVersion}',
-                icon: const Icon(Icons.arrow_circle_up),
-              ),
-            );
-          } else {
-            subtitleWidgets.add(const Text('latest'));
+          final stableAvailableText = Text('${latest.stableVersion} available  ');
+          final preReleaseAvailableText = Text('${latest.preReleaseVersion} available');
+
+          final updateStableIconButton = IconButton(
+            onPressed: () => ref
+                .read(_viewModelProvider.notifier)
+                .editDependency(name, '^${latest.stableVersion}', isDevDependency: isDevDependency),
+            tooltip: 'Update to latest stable ${latest.stableVersion}',
+            icon: const Icon(Icons.arrow_circle_up),
+          );
+
+          final updatePreReleaseIconButton = IconButton(
+            onPressed: () => ref
+                .read(_viewModelProvider.notifier)
+                .editDependency(name, '^${latest.preReleaseVersion}', isDevDependency: isDevDependency),
+            tooltip: 'Update to latest pre release ${latest.preReleaseVersion}',
+            icon: const Icon(Icons.arrow_circle_up),
+          );
+
+          if (version == latest.stable) {
+            subtitleWidgets.add(const Text('latest stable  '));
+          } else if (version < latest.stable) {
+            subtitleWidgets.add(stableAvailableText);
+            trailingWidgets.add(updateStableIconButton);
           }
+
+          if (version == latest.preRelease) {
+            subtitleWidgets.add(const Text('latest pre release'));
+          } else if (version < latest.preRelease && latest.preReleasing) {
+            subtitleWidgets.add(preReleaseAvailableText);
+            trailingWidgets.add(updatePreReleaseIconButton);
+          }
+        } else {
+          subtitleWidgets.add(const Text('unknown'));
         }
 
         return ListTile(
-          title: Text('$name:${dependency.version}'),
+          title: Text('$name: ${dependency.version}'),
           subtitle: Row(children: subtitleWidgets),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,

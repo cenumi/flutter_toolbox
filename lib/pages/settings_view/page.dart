@@ -130,7 +130,7 @@ class _FlutterInfoList extends ConsumerWidget {
     return Column(
       children: [
         ListTile(
-          title: const Text('Path'),
+          title: const Text('Flutter Path'),
           subtitle: Text(path ?? 'UNSET'),
           onTap: () => changeFlutterPath(context, ref),
           trailing: const Icon(Icons.folder_open),

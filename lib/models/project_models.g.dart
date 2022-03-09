@@ -17,14 +17,18 @@ extension GetProjectCollection on Isar {
 final ProjectSchema = CollectionSchema(
   name: 'Project',
   schema:
-      '{"name":"Project","idName":"id","properties":[{"name":"name","type":"String"},{"name":"path","type":"String"}],"indexes":[],"links":[]}',
+      '{"name":"Project","idName":"id","properties":[{"name":"description","type":"String"},{"name":"name","type":"String"},{"name":"path","type":"String"}],"indexes":[{"name":"path","unique":true,"properties":[{"name":"path","type":"Hash","caseSensitive":true}]}],"links":[]}',
   nativeAdapter: const _ProjectNativeAdapter(),
   webAdapter: const _ProjectWebAdapter(),
   idName: 'id',
-  propertyIds: {'name': 0, 'path': 1},
+  propertyIds: {'description': 0, 'name': 1, 'path': 2},
   listProperties: {},
-  indexIds: {},
-  indexTypes: {},
+  indexIds: {'path': 0},
+  indexTypes: {
+    'path': [
+      NativeIndexType.stringHash,
+    ]
+  },
   linkIds: {},
   backlinkIds: {},
   linkedCollections: [],
@@ -46,6 +50,7 @@ class _ProjectWebAdapter extends IsarWebTypeAdapter<Project> {
   @override
   Object serialize(IsarCollection<Project> collection, Project object) {
     final jsObj = IsarNative.newJsObject();
+    IsarNative.jsObjectSet(jsObj, 'description', object.description);
     IsarNative.jsObjectSet(jsObj, 'id', object.id);
     IsarNative.jsObjectSet(jsObj, 'name', object.name);
     IsarNative.jsObjectSet(jsObj, 'path', object.path);
@@ -55,8 +60,9 @@ class _ProjectWebAdapter extends IsarWebTypeAdapter<Project> {
   @override
   Project deserialize(IsarCollection<Project> collection, dynamic jsObj) {
     final object = Project(
+      description: IsarNative.jsObjectGet(jsObj, 'description') ?? '',
       id: IsarNative.jsObjectGet(jsObj, 'id'),
-      name: IsarNative.jsObjectGet(jsObj, 'name'),
+      name: IsarNative.jsObjectGet(jsObj, 'name') ?? '',
       path: IsarNative.jsObjectGet(jsObj, 'path') ?? '',
     );
     return object;
@@ -65,10 +71,12 @@ class _ProjectWebAdapter extends IsarWebTypeAdapter<Project> {
   @override
   P deserializeProperty<P>(Object jsObj, String propertyName) {
     switch (propertyName) {
+      case 'description':
+        return (IsarNative.jsObjectGet(jsObj, 'description') ?? '') as P;
       case 'id':
         return (IsarNative.jsObjectGet(jsObj, 'id')) as P;
       case 'name':
-        return (IsarNative.jsObjectGet(jsObj, 'name')) as P;
+        return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
       case 'path':
         return (IsarNative.jsObjectGet(jsObj, 'path') ?? '') as P;
       default:
@@ -87,14 +95,14 @@ class _ProjectNativeAdapter extends IsarNativeTypeAdapter<Project> {
   void serialize(IsarCollection<Project> collection, IsarRawObject rawObj,
       Project object, int staticSize, List<int> offsets, AdapterAlloc alloc) {
     var dynamicSize = 0;
-    final value0 = object.name;
-    IsarUint8List? _name;
-    if (value0 != null) {
-      _name = IsarBinaryWriter.utf8Encoder.convert(value0);
-    }
-    dynamicSize += (_name?.length ?? 0) as int;
-    final value1 = object.path;
-    final _path = IsarBinaryWriter.utf8Encoder.convert(value1);
+    final value0 = object.description;
+    final _description = IsarBinaryWriter.utf8Encoder.convert(value0);
+    dynamicSize += (_description.length) as int;
+    final value1 = object.name;
+    final _name = IsarBinaryWriter.utf8Encoder.convert(value1);
+    dynamicSize += (_name.length) as int;
+    final value2 = object.path;
+    final _path = IsarBinaryWriter.utf8Encoder.convert(value2);
     dynamicSize += (_path.length) as int;
     final size = staticSize + dynamicSize;
 
@@ -102,17 +110,19 @@ class _ProjectNativeAdapter extends IsarNativeTypeAdapter<Project> {
     rawObj.buffer_length = size;
     final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
     final writer = IsarBinaryWriter(buffer, staticSize);
-    writer.writeBytes(offsets[0], _name);
-    writer.writeBytes(offsets[1], _path);
+    writer.writeBytes(offsets[0], _description);
+    writer.writeBytes(offsets[1], _name);
+    writer.writeBytes(offsets[2], _path);
   }
 
   @override
   Project deserialize(IsarCollection<Project> collection, int id,
       IsarBinaryReader reader, List<int> offsets) {
     final object = Project(
+      description: reader.readString(offsets[0]),
       id: id,
-      name: reader.readStringOrNull(offsets[0]),
-      path: reader.readString(offsets[1]),
+      name: reader.readString(offsets[1]),
+      path: reader.readString(offsets[2]),
     );
     return object;
   }
@@ -124,8 +134,10 @@ class _ProjectNativeAdapter extends IsarNativeTypeAdapter<Project> {
       case -1:
         return id as P;
       case 0:
-        return (reader.readStringOrNull(offset)) as P;
+        return (reader.readString(offset)) as P;
       case 1:
+        return (reader.readString(offset)) as P;
+      case 2:
         return (reader.readString(offset)) as P;
       default:
         throw 'Illegal propertyIndex';
@@ -136,9 +148,51 @@ class _ProjectNativeAdapter extends IsarNativeTypeAdapter<Project> {
   void attachLinks(Isar isar, int id, Project object) {}
 }
 
+extension ProjectByIndex on IsarCollection<Project> {
+  Future<Project?> getByPath(String path) {
+    return getByIndex('path', [path]);
+  }
+
+  Project? getByPathSync(String path) {
+    return getByIndexSync('path', [path]);
+  }
+
+  Future<bool> deleteByPath(String path) {
+    return deleteByIndex('path', [path]);
+  }
+
+  bool deleteByPathSync(String path) {
+    return deleteByIndexSync('path', [path]);
+  }
+
+  Future<List<Project?>> getAllByPath(List<String> pathValues) {
+    final values = pathValues.map((e) => [e]).toList();
+    return getAllByIndex('path', values);
+  }
+
+  List<Project?> getAllByPathSync(List<String> pathValues) {
+    final values = pathValues.map((e) => [e]).toList();
+    return getAllByIndexSync('path', values);
+  }
+
+  Future<int> deleteAllByPath(List<String> pathValues) {
+    final values = pathValues.map((e) => [e]).toList();
+    return deleteAllByIndex('path', values);
+  }
+
+  int deleteAllByPathSync(List<String> pathValues) {
+    final values = pathValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync('path', values);
+  }
+}
+
 extension ProjectQueryWhereSort on QueryBuilder<Project, Project, QWhere> {
   QueryBuilder<Project, Project, QAfterWhere> anyId() {
     return addWhereClauseInternal(const WhereClause(indexName: null));
+  }
+
+  QueryBuilder<Project, Project, QAfterWhere> anyPath() {
+    return addWhereClauseInternal(const WhereClause(indexName: 'path'));
   }
 }
 
@@ -213,10 +267,148 @@ extension ProjectQueryWhere on QueryBuilder<Project, Project, QWhereClause> {
       includeUpper: includeUpper,
     ));
   }
+
+  QueryBuilder<Project, Project, QAfterWhereClause> pathEqualTo(String path) {
+    return addWhereClauseInternal(WhereClause(
+      indexName: 'path',
+      lower: [path],
+      includeLower: true,
+      upper: [path],
+      includeUpper: true,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterWhereClause> pathNotEqualTo(
+      String path) {
+    if (whereSortInternal == Sort.asc) {
+      return addWhereClauseInternal(WhereClause(
+        indexName: 'path',
+        upper: [path],
+        includeUpper: false,
+      )).addWhereClauseInternal(WhereClause(
+        indexName: 'path',
+        lower: [path],
+        includeLower: false,
+      ));
+    } else {
+      return addWhereClauseInternal(WhereClause(
+        indexName: 'path',
+        lower: [path],
+        includeLower: false,
+      )).addWhereClauseInternal(WhereClause(
+        indexName: 'path',
+        upper: [path],
+        includeUpper: false,
+      ));
+    }
+  }
 }
 
 extension ProjectQueryFilter
     on QueryBuilder<Project, Project, QFilterCondition> {
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.eq,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+    bool include = false,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.gt,
+      include: include,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionLessThan(
+    String value, {
+    bool caseSensitive = true,
+    bool include = false,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.lt,
+      include: include,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition.between(
+      property: 'description',
+      lower: lower,
+      includeLower: includeLower,
+      upper: upper,
+      includeUpper: includeUpper,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.startsWith,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.endsWith,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.contains,
+      property: 'description',
+      value: value,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
+  QueryBuilder<Project, Project, QAfterFilterCondition> descriptionMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return addFilterConditionInternal(FilterCondition(
+      type: ConditionType.matches,
+      property: 'description',
+      value: pattern,
+      caseSensitive: caseSensitive,
+    ));
+  }
+
   QueryBuilder<Project, Project, QAfterFilterCondition> idIsNull() {
     return addFilterConditionInternal(FilterCondition(
       type: ConditionType.isNull,
@@ -272,16 +464,8 @@ extension ProjectQueryFilter
     ));
   }
 
-  QueryBuilder<Project, Project, QAfterFilterCondition> nameIsNull() {
-    return addFilterConditionInternal(FilterCondition(
-      type: ConditionType.isNull,
-      property: 'name',
-      value: null,
-    ));
-  }
-
   QueryBuilder<Project, Project, QAfterFilterCondition> nameEqualTo(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
   }) {
     return addFilterConditionInternal(FilterCondition(
@@ -293,7 +477,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> nameGreaterThan(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
     bool include = false,
   }) {
@@ -307,7 +491,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> nameLessThan(
-    String? value, {
+    String value, {
     bool caseSensitive = true,
     bool include = false,
   }) {
@@ -321,8 +505,8 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> nameBetween(
-    String? lower,
-    String? upper, {
+    String lower,
+    String upper, {
     bool caseSensitive = true,
     bool includeLower = true,
     bool includeUpper = true,
@@ -491,6 +675,14 @@ extension ProjectQueryLinks
     on QueryBuilder<Project, Project, QFilterCondition> {}
 
 extension ProjectQueryWhereSortBy on QueryBuilder<Project, Project, QSortBy> {
+  QueryBuilder<Project, Project, QAfterSortBy> sortByDescription() {
+    return addSortByInternal('description', Sort.asc);
+  }
+
+  QueryBuilder<Project, Project, QAfterSortBy> sortByDescriptionDesc() {
+    return addSortByInternal('description', Sort.desc);
+  }
+
   QueryBuilder<Project, Project, QAfterSortBy> sortById() {
     return addSortByInternal('id', Sort.asc);
   }
@@ -518,6 +710,14 @@ extension ProjectQueryWhereSortBy on QueryBuilder<Project, Project, QSortBy> {
 
 extension ProjectQueryWhereSortThenBy
     on QueryBuilder<Project, Project, QSortThenBy> {
+  QueryBuilder<Project, Project, QAfterSortBy> thenByDescription() {
+    return addSortByInternal('description', Sort.asc);
+  }
+
+  QueryBuilder<Project, Project, QAfterSortBy> thenByDescriptionDesc() {
+    return addSortByInternal('description', Sort.desc);
+  }
+
   QueryBuilder<Project, Project, QAfterSortBy> thenById() {
     return addSortByInternal('id', Sort.asc);
   }
@@ -545,6 +745,11 @@ extension ProjectQueryWhereSortThenBy
 
 extension ProjectQueryWhereDistinct
     on QueryBuilder<Project, Project, QDistinct> {
+  QueryBuilder<Project, Project, QDistinct> distinctByDescription(
+      {bool caseSensitive = true}) {
+    return addDistinctByInternal('description', caseSensitive: caseSensitive);
+  }
+
   QueryBuilder<Project, Project, QDistinct> distinctById() {
     return addDistinctByInternal('id');
   }
@@ -562,11 +767,15 @@ extension ProjectQueryWhereDistinct
 
 extension ProjectQueryProperty
     on QueryBuilder<Project, Project, QQueryProperty> {
+  QueryBuilder<Project, String, QQueryOperations> descriptionProperty() {
+    return addPropertyNameInternal('description');
+  }
+
   QueryBuilder<Project, int?, QQueryOperations> idProperty() {
     return addPropertyNameInternal('id');
   }
 
-  QueryBuilder<Project, String?, QQueryOperations> nameProperty() {
+  QueryBuilder<Project, String, QQueryOperations> nameProperty() {
     return addPropertyNameInternal('name');
   }
 

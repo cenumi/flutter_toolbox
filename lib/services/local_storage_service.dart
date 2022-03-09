@@ -7,10 +7,13 @@ final localStorageServiceProvider = Provider((_) => LocalStorageService());
 
 class LocalStorageService {
   static const dbName = 'flutter_toolbox_db';
+  static late final SharedPreferences sharedPreferences;
+  static late final Isar database;
 
   static Future<void> init({bool useInspector = false}) async {
+    sharedPreferences = await SharedPreferences.getInstance();
     final dir = await getApplicationSupportDirectory();
-    await Isar.open(
+    database = await Isar.open(
       schemas: [ProjectSchema, DependencyVersionSchema],
       directory: dir.path,
       name: dbName,
@@ -18,9 +21,9 @@ class LocalStorageService {
     );
   }
 
-  final sp = SharedPreferences.getInstance();
+  Isar get db => database;
 
-  final db = Isar.getInstance(dbName)!;
+  SharedPreferences get sp => sharedPreferences;
 
-  Future<bool> saveString(String key, String value) => sp.then((sp) => sp.setString(key, value));
+  Future<bool> saveString(String key, String value) => sp.setString(key, value);
 }

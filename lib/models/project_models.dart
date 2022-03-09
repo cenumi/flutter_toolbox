@@ -2,7 +2,6 @@
 
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:isar/isar.dart';
 
 part 'project_models.freezed.dart';
 
@@ -13,8 +12,9 @@ part 'project_models.g.dart';
 class Project with _$Project {
   const factory Project({
     int? id,
-    String? name,
-    required String path,
+    @Index(unique: true) required String path,
+    required String name,
+    required String description,
   }) = _Project;
 
   const Project._();

@@ -5,7 +5,7 @@ class _DependenciesList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final list = ref.watch(_viewModelProvider.select((value) => value.pubspec?.dependencies));
+    final list = ref.watch(_viewModelProvider.select((value) => value?.dependencies));
 
     return _DependencyListView(dependencies: list, isDevDependencies: false);
   }

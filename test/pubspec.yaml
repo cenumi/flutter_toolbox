@@ -35,7 +35,7 @@ dependencies:
 
   # internationalization
   # https://pub.dev/packages/intl
-  intl: ^0.17.0
+  intl: ^0.16.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -47,7 +47,7 @@ dependencies:
 
   # State Management
   # https://pub.dev/packages/flutter_riverpod
-  flutter_riverpod: ^2.0.0-dev.4
+  flutter_riverpod: ^1.0.3
 
   # Data Model
   # https://pub.dev/packages/freezed_annotation
@@ -66,7 +66,7 @@ dependencies:
 
   # Log
   # https://pub.dev/packages/logger
-  logger: ^1.1.0
+  logger: ^1.0.0
 
   # https://pub.dev/packages/path_provider
   path_provider: ^2.0.9

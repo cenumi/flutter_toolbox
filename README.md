@@ -1,17 +1,20 @@
 # flutter_toolbox
 
-Toolbox for Flutter development, provides:
+Toolbox for Flutter development
 
-- [x] Flutter SDK Management
-  - [x] Check SDK
-  - [x] Config
-  - [x] Goto flutter changelog
-  - [x] Goto dart changelog
-- [ ] Flutter Project Management
-  - [ ] Version
-  - [ ] Dependencies
-    - [x] Update / Beta
-    - [ ] Homepage / Changelog
-    - [ ] Overrides
-  - [ ] Assets
-  - [ ] Fonts
+Project management
+
+![](screenshots/projects.png)
+
+Check local SDK information  
+Change Pub server for dependency version fetching  
+Read Flutter / Dart changelogs  
+Change Flutter platform config
+
+![](screenshots/settings.png)
+
+Check project dependency updates, change it with one click
+
+![](screenshots/project detail.png)
+
+![](screenshots/project detail2.png)

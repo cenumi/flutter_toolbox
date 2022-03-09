@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
 import 'package:flutter_toolbox/models/project_models.dart';
 import 'package:flutter_toolbox/services/app_service.dart';
@@ -10,10 +9,7 @@ import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 import 'package:flutter_toolbox/services/pub_service.dart';
 
-
 part 'state.dart';
-
-part 'page.freezed.dart';
 
 part 'view_dependency.dart';
 
@@ -24,9 +20,10 @@ part 'view_update_able.dart';
 part 'view_common.dart';
 
 class ProjectDetailPage extends ConsumerStatefulWidget {
-  const ProjectDetailPage({Key? key, required this.path}) : super(key: key);
+  const ProjectDetailPage({Key? key, required this.path, this.id}) : super(key: key);
 
   final String path;
+  final int? id;
 
   @override
   _ProjectDetailPageState createState() => _ProjectDetailPageState();
@@ -43,7 +40,7 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(_viewModelProvider.notifier).init(widget.path);
+    ref.read(_viewModelProvider.notifier).init(widget.path, widget.id);
   }
 
   @override
@@ -55,11 +52,18 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
         actions: [
           IconButton(
             onPressed: () => launch('file://${widget.path}${Platform.pathSeparator}pubspec.yaml'),
+            tooltip: 'Open in default editor',
             icon: const Icon(Icons.code),
           ),
           IconButton(
-            onPressed: () => ref.read(_viewModelProvider.notifier).fetchUpdates(),
+            onPressed: () => ref.read(_viewModelProvider.notifier).load(),
+            tooltip: 'Reload from disk',
             icon: const Icon(Icons.refresh),
+          ),
+          IconButton(
+            onPressed: () => ref.read(_viewModelProvider.notifier).fetchUpdates(),
+            tooltip: 'Fetch versions from Pub',
+            icon: const Icon(Icons.cloud_download),
           ),
         ],
       ),

@@ -1,35 +1,29 @@
 part of 'page.dart';
 
-@freezed
-class _ProjectDetailState with _$_ProjectDetailState {
-  const factory _ProjectDetailState({
-    Pubspec? pubspec,
-  }) = __ProjectDetailState;
-
-  const _ProjectDetailState._();
-}
-
-final _viewModelProvider = StateNotifierProvider.autoDispose<_ViewModel, _ProjectDetailState>(
+final _viewModelProvider = StateNotifierProvider.autoDispose<_ViewModel, Pubspec?>(
   (ref) => _ViewModel(ref.read),
 );
 
-class _ViewModel extends StateNotifier<_ProjectDetailState> {
+class _ViewModel extends StateNotifier<Pubspec?> {
   _ViewModel(Reader read)
       : _pubService = read(pubServiceProvider),
         _globals = read(globalsProvider),
         _localStorageService = read(localStorageServiceProvider),
-        super(const _ProjectDetailState());
+        super(null);
 
-  String? path;
+  late String path;
+  int? id;
 
   final PubService _pubService;
   final LocalStorageService _localStorageService;
   final GlobalService _globals;
 
   File? yamlFile;
+  DateTime? lastUpdateTime;
 
-  Future<void> init(String path) async {
+  Future<void> init(String path, int? id) async {
     this.path = path;
+    this.id = id;
     yamlFile = File('$path${Platform.pathSeparator}pubspec.yaml');
     await load();
     await fetchUpdates();
@@ -37,18 +31,32 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
 
   Future<void> load() async {
     final yaml = await yamlFile!.readAsString();
-    state = state.copyWith.call(pubspec: Pubspec.parse(yaml));
+    final pubspec = Pubspec.parse(yaml);
+    _localStorageService.db.writeTxn((db) async {
+      await db.projects.put(
+        Project(id: id, path: path, name: pubspec.name, description: pubspec.description ?? ''),
+        replaceOnConflict: true,
+      );
+    });
+    state = pubspec;
   }
 
   Future<void> fetchUpdates() async {
-    if (state.pubspec == null) return;
+    if (state == null) return;
 
     final versions = <DependencyVersion>[];
+    final errorList = <String>[];
+
+    lastUpdateTime = DateTime.now();
 
     await Future.wait([
-      for (final entry in state.pubspec!.dependencies.entries) _fetchVersion(entry.key, entry.value, versions),
-      for (final entry in state.pubspec!.devDependencies.entries) _fetchVersion(entry.key, entry.value, versions),
+      for (final entry in state!.dependencies.entries) _fetchVersion(entry.key, entry.value, versions, errorList),
+      for (final entry in state!.devDependencies.entries) _fetchVersion(entry.key, entry.value, versions, errorList),
     ]);
+
+    if (errorList.isNotEmpty) {
+      showSnackBar('$errorList Fetch Error');
+    }
 
     await _localStorageService.db.writeTxn((db) async {
       await db.dependencyVersions.putAll(versions, replaceOnConflict: true);
@@ -59,6 +67,7 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
     String name,
     Dependency dependency,
     List<DependencyVersion> versions,
+    List<String> errorList,
   ) async {
     if (dependency is! HostedDependency) return;
     try {
@@ -76,7 +85,7 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
         );
       }
     } catch (e) {
-      showSnackBar(e.toString());
+      errorList.add(name);
     }
   }
 
@@ -85,7 +94,7 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
       final editor = YamlEditor(await yamlFile!.readAsString());
       editor.update([if (isDevDependency) 'dev_dependencies' else 'dependencies', name], version);
       yamlFile!.writeAsString(editor.toString());
-      state = state.copyWith.call(pubspec: Pubspec.parse(editor.toString()));
+      state = Pubspec.parse(editor.toString());
     } catch (e) {
       showSnackBar(e.toString());
     }

@@ -33,7 +33,7 @@ class AppService extends StateNotifier<AppServiceData> {
   final _pm = const LocalProcessManager();
 
   Future<void> _load() async {
-    final sp = await _localStorageService.sp;
+    final sp = _localStorageService.sp;
     state = state.copyWith.call(
       flutterPath: sp.getString('flutterPath'),
       pubBaseURL: sp.getString('pubUrl') ?? AppServiceData.defaultPubUrl,

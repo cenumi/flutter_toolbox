@@ -1,14 +1,23 @@
 import 'package:flutter_toolbox/core/meta.dart';
+import 'package:flutter_toolbox/core/packages.dart';
+import 'package:flutter_toolbox/services/app_service.dart';
 
-class HttpService {
-  HttpService(this.baseUrl);
+final pubHttpClientProvider = Provider((ref) {
+  final baseURL = ref.watch(appServiceProvider.select((value) => value.pubBaseURL));
 
-  final Map<Type, JsonFactory> factories = {};
+  return PubHttpClient(baseURL ?? '', {});
+});
+
+class PubHttpClient {
+  PubHttpClient(this.baseUrl, this.factories)
+      : client = ChopperClient(
+          baseUrl: baseUrl,
+          converter: JsonSerializableConverter(factories),
+        );
+
+  final Map<Type, JsonFactory> factories;
   final String baseUrl;
-  late final client = ChopperClient(
-    baseUrl: baseUrl,
-    converter: JsonSerializableConverter(factories),
-  );
+  final ChopperClient client;
 }
 
 typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
