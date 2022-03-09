@@ -15,6 +15,6 @@ Change Flutter platform config
 
 Check project dependency updates, change it with one click
 
-![](screenshots/project detail.png)
+![](screenshots/project_detail.png)
 
-![](screenshots/project detail2.png)
+![](screenshots/project_detail2.png)
