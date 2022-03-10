@@ -13,6 +13,7 @@ class _DependencyListView extends StatelessWidget {
     if (dependencies!.isEmpty) return const Center(child: Text('There is nothing here'));
 
     return ListView.builder(
+      cacheExtent: 200,
       itemBuilder: (context, index) {
         final item = dependencies!.entries.elementAt(index);
         final name = item.key;
@@ -40,82 +41,89 @@ class _HostedDependencyItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final query = ref.read(localStorageServiceProvider).db.dependencyVersions.where().nameEqualTo(name).limit(1);
+
     return StreamBuilder<List<DependencyVersion>>(
       stream: query.watch(initialReturn: true),
-      builder: (context, snapshot) {
-        final latest = snapshot.data?.firstOrNull;
+      builder: (context, snapshot) => Consumer(
+        key: ValueKey(name),
+        builder: (context, ref, child) {
+          final lastUpdateTime = ref.watch(_viewModelProvider.select((value) => value.lastUpdateTime));
 
-        final depVersion = dependency.version;
+          final latest = snapshot.data?.firstOrNull;
 
-        final Version version;
+          final subtitleWidgets = <Widget>[];
+          final trailingWidgets = <Widget>[];
 
-        if (depVersion is VersionRange) {
-          version = depVersion.min ?? depVersion.max!;
-        } else if (depVersion is Version) {
-          version = depVersion;
-        } else {
-          version = Version.none;
-        }
+          if (latest != null && lastUpdateTime == latest.updateTime) {
+            final depVersion = dependency.version;
 
-        final subtitleWidgets = <Widget>[];
-        final trailingWidgets = <Widget>[];
+            final Version version;
 
-        if (latest != null) {
-          final stableAvailableText = Text('${latest.stableVersion} available  ');
-          final preReleaseAvailableText = Text('${latest.preReleaseVersion} available');
+            if (depVersion is VersionRange) {
+              version = depVersion.min ?? depVersion.max!;
+            } else if (depVersion is Version) {
+              version = depVersion;
+            } else {
+              version = Version.none;
+            }
 
-          final updateStableIconButton = IconButton(
-            onPressed: () => ref
-                .read(_viewModelProvider.notifier)
-                .editDependency(name, '^${latest.stableVersion}', isDevDependency: isDevDependency),
-            tooltip: 'Update to latest stable ${latest.stableVersion}',
-            icon: const Icon(Icons.arrow_circle_up),
-          );
+            final stableAvailableText = Text('${latest.stableVersion} available  ');
+            final preReleaseAvailableText = Text('${latest.preReleaseVersion} available');
 
-          final updatePreReleaseIconButton = IconButton(
-            onPressed: () => ref
-                .read(_viewModelProvider.notifier)
-                .editDependency(name, '^${latest.preReleaseVersion}', isDevDependency: isDevDependency),
-            tooltip: 'Update to latest pre release ${latest.preReleaseVersion}',
-            icon: const Icon(Icons.arrow_circle_up),
-          );
+            final updateStableIconButton = IconButton(
+              onPressed: () => ref
+                  .read(_viewModelProvider.notifier)
+                  .editDependency(name, '^${latest.stableVersion}', isDevDependency: isDevDependency),
+              tooltip: 'Update to latest stable ${latest.stableVersion}',
+              icon: const Icon(Icons.arrow_circle_up),
+            );
 
-          if (version == latest.stable) {
-            subtitleWidgets.add(const Text('latest stable  '));
-          } else if (version < latest.stable) {
-            subtitleWidgets.add(stableAvailableText);
-            trailingWidgets.add(updateStableIconButton);
+            final updatePreReleaseIconButton = IconButton(
+              onPressed: () => ref
+                  .read(_viewModelProvider.notifier)
+                  .editDependency(name, '^${latest.preReleaseVersion}', isDevDependency: isDevDependency),
+              tooltip: 'Update to latest pre release ${latest.preReleaseVersion}',
+              icon: const Icon(Icons.arrow_circle_up),
+            );
+
+            if (version == latest.stable) {
+              subtitleWidgets.add(const Text('latest stable  '));
+            } else if (version < latest.stable) {
+              subtitleWidgets.add(stableAvailableText);
+              trailingWidgets.add(updateStableIconButton);
+            }
+
+            if (version == latest.preRelease) {
+              subtitleWidgets.add(const Text('latest pre release'));
+            } else if (version < latest.preRelease && latest.preReleasing) {
+              subtitleWidgets.add(preReleaseAvailableText);
+              trailingWidgets.add(updatePreReleaseIconButton);
+            }
+          } else {
+            subtitleWidgets.add(const Text('unknown'));
+            trailingWidgets.add(const SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2)));
           }
 
-          if (version == latest.preRelease) {
-            subtitleWidgets.add(const Text('latest pre release'));
-          } else if (version < latest.preRelease && latest.preReleasing) {
-            subtitleWidgets.add(preReleaseAvailableText);
-            trailingWidgets.add(updatePreReleaseIconButton);
-          }
-        } else {
-          subtitleWidgets.add(const Text('unknown'));
-        }
-
-        return ListTile(
-          title: Text('$name: ${dependency.version}'),
-          subtitle: Row(children: subtitleWidgets),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ...trailingWidgets,
-              IconButton(
-                onPressed: () {
-                  final url = ref.read(appServiceProvider).pubBaseURL;
-                  launch('$url/packages/$name');
-                },
-                tooltip: 'Open in Pub',
-                icon: const Icon(Icons.open_in_new),
-              )
-            ],
-          ),
-        );
-      },
+          return ListTile(
+            title: Text('$name: ${dependency.version}'),
+            subtitle: Row(children: subtitleWidgets),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ...trailingWidgets,
+                IconButton(
+                  onPressed: () {
+                    final url = ref.read(appServiceProvider).pubBaseURL;
+                    launch('$url/packages/$name');
+                  },
+                  tooltip: 'Open in Pub',
+                  icon: const Icon(Icons.open_in_new),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -129,13 +137,15 @@ class _OtherDependencyItem extends ConsumerWidget {
   final bool isDevDependency;
 
   void openInBrowser(BuildContext context, WidgetRef ref) {
-    if (dependency is HostedDependency) {
-      final url = ref.read(appServiceProvider).pubBaseURL;
-      launch('$url/packages/$name');
+    final dep = dependency;
+
+    if (dep is GitDependency) {
+      launch(dep.url.toString());
       return;
     }
-    if (dependency is GitDependency) {
-      launch((dependency as GitDependency).url.toString());
+
+    if (dep is PathDependency) {
+      launch('file://${dep.path}');
       return;
     }
   }

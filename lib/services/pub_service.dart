@@ -7,10 +7,10 @@ part 'pub_service.chopper.dart';
 
 final pubServiceProvider = Provider(
   (ref) {
-    final client = ref.watch(pubHttpClientProvider)
-      ..factories.addAll({
-        PubVersions: PubVersions.fromJson,
-      });
+    final client = PubHttpClient(
+      ref.read,
+      {PubVersions: PubVersions.fromJson},
+    );
     return PubService.create(client.client);
   },
 );

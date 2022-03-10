@@ -2,12 +2,15 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
 import 'package:flutter_toolbox/models/project_models.dart';
 import 'package:flutter_toolbox/services/app_service.dart';
 import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 import 'package:flutter_toolbox/services/pub_service.dart';
+
+part 'page.freezed.dart';
 
 part 'state.dart';
 
@@ -60,10 +63,15 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
             tooltip: 'Reload from disk',
             icon: const Icon(Icons.refresh),
           ),
-          IconButton(
-            onPressed: () => ref.read(_viewModelProvider.notifier).fetchUpdates(),
-            tooltip: 'Fetch versions from Pub',
-            icon: const Icon(Icons.cloud_download),
+          Consumer(
+            builder: (context,ref,_) {
+              final lastUpdateTime = ref.watch(_viewModelProvider.select((value) => value.lastUpdateTime));
+              return IconButton(
+                onPressed: () => ref.read(_viewModelProvider.notifier).fetchUpdates(),
+                tooltip: 'Fetch versions from Pub, updated at $lastUpdateTime',
+                icon: const Icon(Icons.cloud_download),
+              );
+            }
           ),
         ],
       ),

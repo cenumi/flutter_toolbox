@@ -38,7 +38,7 @@ class ToolboxApp extends StatelessWidget {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
               ),
-
+              snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating)
             ),
             home: const IndexPage(),
           );

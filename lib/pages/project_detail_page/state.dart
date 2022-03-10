@@ -1,15 +1,25 @@
 part of 'page.dart';
 
-final _viewModelProvider = StateNotifierProvider.autoDispose<_ViewModel, Pubspec?>(
+final _viewModelProvider = StateNotifierProvider.autoDispose<_ViewModel, _ProjectDetailState>(
   (ref) => _ViewModel(ref.read),
 );
 
-class _ViewModel extends StateNotifier<Pubspec?> {
+@freezed
+class _ProjectDetailState with _$_ProjectDetailState {
+  const factory _ProjectDetailState({
+    Pubspec? pubspec,
+    DateTime? lastUpdateTime,
+  }) = __ProjectDetailState;
+
+  const _ProjectDetailState._();
+}
+
+class _ViewModel extends StateNotifier<_ProjectDetailState> {
   _ViewModel(Reader read)
       : _pubService = read(pubServiceProvider),
         _globals = read(globalsProvider),
         _localStorageService = read(localStorageServiceProvider),
-        super(null);
+        super(const _ProjectDetailState());
 
   late String path;
   int? id;
@@ -38,38 +48,40 @@ class _ViewModel extends StateNotifier<Pubspec?> {
         replaceOnConflict: true,
       );
     });
-    state = pubspec;
+    state = state.copyWith(pubspec: pubspec);
   }
 
-  Future<void> fetchUpdates() async {
-    if (state == null) return;
+  Future<void> fetchUpdates({List<String>? names, DateTime? updateTime}) async {
+    if (state.pubspec == null) return;
 
     final versions = <DependencyVersion>[];
     final errorList = <String>[];
 
-    lastUpdateTime = DateTime.now();
+    final toUpdate = names ??
+        [
+          ...state.pubspec!.dependencies.entries.where((e) => e.value is HostedDependency).map((e) => e.key),
+          ...state.pubspec!.devDependencies.entries.where((e) => e.value is HostedDependency).map((e) => e.key),
+        ];
 
-    await Future.wait([
-      for (final entry in state!.dependencies.entries) _fetchVersion(entry.key, entry.value, versions, errorList),
-      for (final entry in state!.devDependencies.entries) _fetchVersion(entry.key, entry.value, versions, errorList),
-    ]);
+    lastUpdateTime = updateTime ?? DateTime.now();
 
-    if (errorList.isNotEmpty) {
-      showSnackBar('$errorList Fetch Error');
-    }
+    await Future.wait([for (final name in toUpdate) _fetchVersion(name, versions, errorList)]);
+
+    state = state.copyWith(lastUpdateTime: lastUpdateTime);
 
     await _localStorageService.db.writeTxn((db) async {
-      await db.dependencyVersions.putAll(versions, replaceOnConflict: true);
+      db.dependencyVersions.putAll(versions, replaceOnConflict: true);
     });
+
+    if (errorList.isNotEmpty) {
+      showSnackBar(
+        '$errorList Fetch Error',
+        action: SnackBarAction(label: 'Retry Failed', onPressed: () => fetchUpdates(names: errorList)),
+      );
+    }
   }
 
-  Future<void> _fetchVersion(
-    String name,
-    Dependency dependency,
-    List<DependencyVersion> versions,
-    List<String> errorList,
-  ) async {
-    if (dependency is! HostedDependency) return;
+  Future<void> _fetchVersion(String name, List<DependencyVersion> versions, List<String> errorList) async {
     try {
       final onlineVersions = (await _pubService.getVersions(name)).body;
       if (onlineVersions != null) {
@@ -80,7 +92,7 @@ class _ViewModel extends StateNotifier<Pubspec?> {
             preReleaseVersion: onlineVersions.latestPreReleaseVersion,
             preReleasing:
                 Version.parse(onlineVersions.latestVersion) < Version.parse(onlineVersions.latestPreReleaseVersion),
-            updateTime: DateTime.now(),
+            updateTime: lastUpdateTime!,
           ),
         );
       }
@@ -94,13 +106,15 @@ class _ViewModel extends StateNotifier<Pubspec?> {
       final editor = YamlEditor(await yamlFile!.readAsString());
       editor.update([if (isDevDependency) 'dev_dependencies' else 'dependencies', name], version);
       yamlFile!.writeAsString(editor.toString());
-      state = Pubspec.parse(editor.toString());
+      state = state.copyWith(pubspec: Pubspec.parse(editor.toString()));
     } catch (e) {
       showSnackBar(e.toString());
     }
   }
 
-  void showSnackBar(String text) {
-    _globals.scaffoldMessenger.showSnackBar(SnackBar(content: Text(text)));
+  void showSnackBar(String text, {SnackBarAction? action}) {
+    _globals.scaffoldMessenger.showSnackBar(
+      SnackBar(content: Text(text), duration: const Duration(seconds: 30), action: action),
+    );
   }
 }

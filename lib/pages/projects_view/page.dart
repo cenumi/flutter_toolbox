@@ -110,7 +110,7 @@ class _ProjectListItem extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Padding(padding: EdgeInsets.only(left: 8, right: 24, top: 8, bottom: 8), child: FlutterLogo()),
+                  const Padding(padding: EdgeInsets.only(left: 8, right: 16, top: 8, bottom: 8), child: FlutterLogo()),
                   Text(project.name, style: Theme.of(context).textTheme.titleLarge, maxLines: 1),
                 ],
               ),

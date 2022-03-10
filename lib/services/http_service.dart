@@ -1,23 +1,33 @@
+import 'dart:async';
+
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
 import 'package:flutter_toolbox/services/app_service.dart';
 
-final pubHttpClientProvider = Provider((ref) {
-  final baseURL = ref.watch(appServiceProvider.select((value) => value.pubBaseURL));
-
-  return PubHttpClient(baseURL ?? '', {});
-});
-
 class PubHttpClient {
-  PubHttpClient(this.baseUrl, this.factories)
+  PubHttpClient(Reader read, this.factories)
       : client = ChopperClient(
-          baseUrl: baseUrl,
           converter: JsonSerializableConverter(factories),
+          interceptors: [PubRequestInterceptor(read)],
         );
 
   final Map<Type, JsonFactory> factories;
-  final String baseUrl;
   final ChopperClient client;
+}
+
+class PubRequestInterceptor extends RequestInterceptor {
+  final Reader read;
+
+  PubRequestInterceptor(this.read);
+
+  @override
+  FutureOr<Request> onRequest(Request request) {
+    final url = read(appServiceProvider).pubBaseURL;
+    if (request.baseUrl == url) {
+      return request;
+    }
+    return request.copyWith(baseUrl: url);
+  }
 }
 
 typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
