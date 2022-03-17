@@ -45,7 +45,6 @@ class _HostedDependencyItem extends ConsumerWidget {
     return StreamBuilder<List<DependencyVersion>>(
       stream: query.watch(initialReturn: true),
       builder: (context, snapshot) => Consumer(
-        key: ValueKey(name),
         builder: (context, ref, child) {
           final lastUpdateTime = ref.watch(_viewModelProvider.select((value) => value.lastUpdateTime));
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toolbox/core/globals.dart';
 import 'package:flutter_toolbox/core/meta.dart';
 import 'package:flutter_toolbox/core/packages.dart';
 import 'package:flutter_toolbox/models/flutter_model.dart';
 import 'package:flutter_toolbox/services/app_service.dart';
-import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:process/process.dart';
 
 part 'flutter_service.freezed.dart';
@@ -26,16 +26,12 @@ class FlutterServiceData with _$FlutterServiceData {
 }
 
 class FlutterService extends StateNotifier<FlutterServiceData> {
-  FlutterService(Reader read, this.flutter)
-      : _globalService = read(globalsProvider),
-        super(const FlutterServiceData()) {
+  FlutterService(Reader read, this.flutter) : super(const FlutterServiceData()) {
     fetchFlutterInfo();
     fetchFlutterPlatformConfig();
   }
 
   final String? flutter;
-
-  final GlobalService _globalService;
 
   final _pm = const LocalProcessManager();
 
@@ -46,7 +42,7 @@ class FlutterService extends StateNotifier<FlutterServiceData> {
     if (res.exitCode == 0) {
       state = state.copyWith.call(flutterVersionInfo: FlutterVersionInfo.fromConsole(res.stdout as String));
     } else {
-      _globalService.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
+      Globals.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
     }
   }
 
@@ -57,7 +53,7 @@ class FlutterService extends StateNotifier<FlutterServiceData> {
     if (res.exitCode == 0) {
       state = state.copyWith.call(flutterSettingsInfo: FlutterSettingsInfo.fromConsole(res.stdout as String));
     } else {
-      _globalService.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
+      Globals.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
     }
   }
 
@@ -87,7 +83,7 @@ class FlutterService extends StateNotifier<FlutterServiceData> {
       state = state.copyWith.flutterSettingsInfo!
           .call(platforms: {...state.flutterSettingsInfo!.platforms, platform: enabled});
     } else {
-      _globalService.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
+      Globals.scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: ${res.stderr}')));
     }
   }
 }

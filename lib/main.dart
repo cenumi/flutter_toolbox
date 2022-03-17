@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_toolbox/core/globals.dart';
 import 'package:flutter_toolbox/pages/index_page/page.dart';
-import 'package:flutter_toolbox/services/global_service.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 
 Future<void> main() async {
@@ -19,12 +19,11 @@ class ToolboxApp extends StatelessWidget {
     return ProviderScope(
       child: Consumer(
         builder: (context, ref, _) {
-          final globalService = ref.watch(globalsProvider);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Toolbox',
-            scaffoldMessengerKey: globalService.scaffoldMessengerKey,
-            navigatorKey: globalService.navigatorKey,
+            scaffoldMessengerKey: Globals.scaffoldMessengerKey,
+            navigatorKey: Globals.navigatorKey,
             supportedLocales: const [
               Locale('zh'),
               Locale('en'),
@@ -38,7 +37,7 @@ class ToolboxApp extends StatelessWidget {
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
               ),
-              snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating)
+              snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
             ),
             home: const IndexPage(),
           );

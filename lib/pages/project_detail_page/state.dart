@@ -17,7 +17,6 @@ class _ProjectDetailState with _$_ProjectDetailState {
 class _ViewModel extends StateNotifier<_ProjectDetailState> {
   _ViewModel(Reader read)
       : _pubService = read(pubServiceProvider),
-        _globals = read(globalsProvider),
         _localStorageService = read(localStorageServiceProvider),
         super(const _ProjectDetailState());
 
@@ -26,7 +25,6 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
 
   final PubService _pubService;
   final LocalStorageService _localStorageService;
-  final GlobalService _globals;
 
   File? yamlFile;
   DateTime? lastUpdateTime;
@@ -112,8 +110,16 @@ class _ViewModel extends StateNotifier<_ProjectDetailState> {
     }
   }
 
+  Future<void> editVersion(String version) async {
+    if (Version.parse(version) == state.pubspec?.version) return;
+    final editor = YamlEditor(await yamlFile!.readAsString());
+    editor.update(['version'], version);
+    yamlFile!.writeAsString(editor.toString());
+    state = state.copyWith(pubspec: Pubspec.parse(editor.toString()));
+  }
+
   void showSnackBar(String text, {SnackBarAction? action}) {
-    _globals.scaffoldMessenger.showSnackBar(
+    Globals.scaffoldMessenger.showSnackBar(
       SnackBar(content: Text(text), duration: const Duration(seconds: 30), action: action),
     );
   }
