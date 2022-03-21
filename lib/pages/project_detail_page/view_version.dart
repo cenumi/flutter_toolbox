@@ -21,7 +21,11 @@ class _VersionChanger extends ConsumerWidget {
     if (version == null) return;
 
     version[index] = value.toString();
-    ref.read(_viewModelProvider.notifier).editVersion('${version[0]}.${version[1]}.${version[2]}+${version[3]}');
+
+    final fullVersion =
+        version.length <= 3 ? version.join('.') : '${version[0]}.${version[1]}.${version[2]}+${version[3]}';
+
+    ref.read(_viewModelProvider.notifier).editVersion(fullVersion);
   }
 
   @override

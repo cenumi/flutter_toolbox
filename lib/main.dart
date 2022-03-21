@@ -4,9 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_toolbox/core/globals.dart';
 import 'package:flutter_toolbox/pages/index_page/page.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
+import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await windowManager.ensureInitialized();
+
+  await windowManager.waitUntilReadyToShow().then((_) async {
+    await windowManager.setSize(const Size(800, 600));
+    await windowManager.show();
+  });
+
   await LocalStorageService.init();
   runApp(const ToolboxApp());
 }

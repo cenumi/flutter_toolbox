@@ -103,15 +103,20 @@ class _ProjectListItem extends ConsumerWidget {
           );
         },
         child: SizedBox(
-          width: 250,
+          width: 300,
           height: 150,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const Padding(padding: EdgeInsets.only(left: 8, right: 16, top: 8, bottom: 8), child: FlutterLogo()),
-                  Text(project.name, style: Theme.of(context).textTheme.titleLarge, maxLines: 1),
+                  const Padding(padding: EdgeInsets.all(8), child: FlutterLogo()),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: FittedBox(child: Text(project.name, style: Theme.of(context).textTheme.titleLarge)),
+                    ),
+                  ),
                 ],
               ),
               const Divider(height: 1),
