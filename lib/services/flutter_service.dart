@@ -11,7 +11,7 @@ part 'flutter_service.freezed.dart';
 final flutterServiceProvider = StateNotifierProvider<FlutterService, FlutterServiceData>(
   (ref) {
     final flutterPath = ref.watch(appServiceProvider.select((value) => value.flutterPath));
-    return FlutterService(ref.read, flutterPath);
+    return FlutterService(flutterPath);
   },
 );
 
@@ -26,7 +26,7 @@ class FlutterServiceData with _$FlutterServiceData {
 }
 
 class FlutterService extends StateNotifier<FlutterServiceData> {
-  FlutterService(Reader read, this.flutter) : super(const FlutterServiceData()) {
+  FlutterService(this.flutter) : super(const FlutterServiceData()) {
     fetchFlutterInfo();
     fetchFlutterPlatformConfig();
   }

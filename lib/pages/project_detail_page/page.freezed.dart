@@ -15,11 +15,11 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$_ProjectDetailStateTearOff {
-  const _$_ProjectDetailStateTearOff();
+class _$ProjectDetailStateTearOff {
+  const _$ProjectDetailStateTearOff();
 
-  __ProjectDetailState call({Pubspec? pubspec, DateTime? lastUpdateTime}) {
-    return __ProjectDetailState(
+  _ProjectDetailState call({Pubspec? pubspec, DateTime? lastUpdateTime}) {
+    return _ProjectDetailState(
       pubspec: pubspec,
       lastUpdateTime: lastUpdateTime,
     );
@@ -27,34 +27,34 @@ class _$_ProjectDetailStateTearOff {
 }
 
 /// @nodoc
-const _$ProjectDetailState = _$_ProjectDetailStateTearOff();
+const $ProjectDetailState = _$ProjectDetailStateTearOff();
 
 /// @nodoc
-mixin _$_ProjectDetailState {
+mixin _$ProjectDetailState {
   Pubspec? get pubspec => throw _privateConstructorUsedError;
   DateTime? get lastUpdateTime => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  _$ProjectDetailStateCopyWith<_ProjectDetailState> get copyWith =>
+  $ProjectDetailStateCopyWith<ProjectDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$ProjectDetailStateCopyWith<$Res> {
-  factory _$ProjectDetailStateCopyWith(
-          _ProjectDetailState value, $Res Function(_ProjectDetailState) then) =
-      __$ProjectDetailStateCopyWithImpl<$Res>;
+abstract class $ProjectDetailStateCopyWith<$Res> {
+  factory $ProjectDetailStateCopyWith(
+          ProjectDetailState value, $Res Function(ProjectDetailState) then) =
+      _$ProjectDetailStateCopyWithImpl<$Res>;
   $Res call({Pubspec? pubspec, DateTime? lastUpdateTime});
 }
 
 /// @nodoc
-class __$ProjectDetailStateCopyWithImpl<$Res>
-    implements _$ProjectDetailStateCopyWith<$Res> {
-  __$ProjectDetailStateCopyWithImpl(this._value, this._then);
+class _$ProjectDetailStateCopyWithImpl<$Res>
+    implements $ProjectDetailStateCopyWith<$Res> {
+  _$ProjectDetailStateCopyWithImpl(this._value, this._then);
 
-  final _ProjectDetailState _value;
+  final ProjectDetailState _value;
   // ignore: unused_field
-  final $Res Function(_ProjectDetailState) _then;
+  final $Res Function(ProjectDetailState) _then;
 
   @override
   $Res call({
@@ -75,32 +75,32 @@ class __$ProjectDetailStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$_ProjectDetailStateCopyWith<$Res>
-    implements _$ProjectDetailStateCopyWith<$Res> {
-  factory _$_ProjectDetailStateCopyWith(__ProjectDetailState value,
-          $Res Function(__ProjectDetailState) then) =
-      __$_ProjectDetailStateCopyWithImpl<$Res>;
+abstract class _$ProjectDetailStateCopyWith<$Res>
+    implements $ProjectDetailStateCopyWith<$Res> {
+  factory _$ProjectDetailStateCopyWith(
+          _ProjectDetailState value, $Res Function(_ProjectDetailState) then) =
+      __$ProjectDetailStateCopyWithImpl<$Res>;
   @override
   $Res call({Pubspec? pubspec, DateTime? lastUpdateTime});
 }
 
 /// @nodoc
-class __$_ProjectDetailStateCopyWithImpl<$Res>
-    extends __$ProjectDetailStateCopyWithImpl<$Res>
-    implements _$_ProjectDetailStateCopyWith<$Res> {
-  __$_ProjectDetailStateCopyWithImpl(
-      __ProjectDetailState _value, $Res Function(__ProjectDetailState) _then)
-      : super(_value, (v) => _then(v as __ProjectDetailState));
+class __$ProjectDetailStateCopyWithImpl<$Res>
+    extends _$ProjectDetailStateCopyWithImpl<$Res>
+    implements _$ProjectDetailStateCopyWith<$Res> {
+  __$ProjectDetailStateCopyWithImpl(
+      _ProjectDetailState _value, $Res Function(_ProjectDetailState) _then)
+      : super(_value, (v) => _then(v as _ProjectDetailState));
 
   @override
-  __ProjectDetailState get _value => super._value as __ProjectDetailState;
+  _ProjectDetailState get _value => super._value as _ProjectDetailState;
 
   @override
   $Res call({
     Object? pubspec = freezed,
     Object? lastUpdateTime = freezed,
   }) {
-    return _then(__ProjectDetailState(
+    return _then(_ProjectDetailState(
       pubspec: pubspec == freezed
           ? _value.pubspec
           : pubspec // ignore: cast_nullable_to_non_nullable
@@ -115,8 +115,8 @@ class __$_ProjectDetailStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$__ProjectDetailState extends __ProjectDetailState {
-  const _$__ProjectDetailState({this.pubspec, this.lastUpdateTime}) : super._();
+class _$_ProjectDetailState implements _ProjectDetailState {
+  const _$_ProjectDetailState({this.pubspec, this.lastUpdateTime});
 
   @override
   final Pubspec? pubspec;
@@ -125,14 +125,14 @@ class _$__ProjectDetailState extends __ProjectDetailState {
 
   @override
   String toString() {
-    return '_ProjectDetailState(pubspec: $pubspec, lastUpdateTime: $lastUpdateTime)';
+    return 'ProjectDetailState(pubspec: $pubspec, lastUpdateTime: $lastUpdateTime)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is __ProjectDetailState &&
+            other is _ProjectDetailState &&
             const DeepCollectionEquality().equals(other.pubspec, pubspec) &&
             const DeepCollectionEquality()
                 .equals(other.lastUpdateTime, lastUpdateTime));
@@ -146,15 +146,13 @@ class _$__ProjectDetailState extends __ProjectDetailState {
 
   @JsonKey(ignore: true)
   @override
-  _$_ProjectDetailStateCopyWith<__ProjectDetailState> get copyWith =>
-      __$_ProjectDetailStateCopyWithImpl<__ProjectDetailState>(
-          this, _$identity);
+  _$ProjectDetailStateCopyWith<_ProjectDetailState> get copyWith =>
+      __$ProjectDetailStateCopyWithImpl<_ProjectDetailState>(this, _$identity);
 }
 
-abstract class __ProjectDetailState extends _ProjectDetailState {
-  const factory __ProjectDetailState(
-      {Pubspec? pubspec, DateTime? lastUpdateTime}) = _$__ProjectDetailState;
-  const __ProjectDetailState._() : super._();
+abstract class _ProjectDetailState implements ProjectDetailState {
+  const factory _ProjectDetailState(
+      {Pubspec? pubspec, DateTime? lastUpdateTime}) = _$_ProjectDetailState;
 
   @override
   Pubspec? get pubspec;
@@ -162,6 +160,6 @@ abstract class __ProjectDetailState extends _ProjectDetailState {
   DateTime? get lastUpdateTime;
   @override
   @JsonKey(ignore: true)
-  _$_ProjectDetailStateCopyWith<__ProjectDetailState> get copyWith =>
+  _$ProjectDetailStateCopyWith<_ProjectDetailState> get copyWith =>
       throw _privateConstructorUsedError;
 }

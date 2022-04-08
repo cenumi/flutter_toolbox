@@ -45,9 +45,12 @@ dependencies:
   # https://pub.dev/packages/chopper
   chopper: ^4.0.5
 
+  # https://pub.dev/packages/collection
+  collection: ^1.15.0
+
   # State Management
   # https://pub.dev/packages/flutter_riverpod
-  flutter_riverpod: ^2.0.0-dev.4
+  flutter_riverpod: ^2.0.0-dev.5
 
   # Data Model
   # https://pub.dev/packages/freezed_annotation
@@ -57,7 +60,7 @@ dependencies:
   json_annotation: ^4.4.0
 
   # https://pub.dev/packages/file_selector
-  file_selector: ^0.8.4
+  file_selector: ^0.8.4+1
 
   # Database
   # https://pub.dev/packages/isar
@@ -75,7 +78,7 @@ dependencies:
   process: ^4.2.4
 
   # https://pub.dev/packages/pub_semver
-  pub_semver: ^2.1.0
+  pub_semver: ^2.1.1
 
   # https://pub.dev/packages/pubspec_parse
   pubspec_parse: ^1.2.0
@@ -87,10 +90,10 @@ dependencies:
   url_launcher: ^6.0.20
 
   # https://pub.dev/packages/window_manager
-  window_manager: ^0.2.0
+  window_manager: ^0.2.1
 
   # https://pub.dev/packages/yaml_edit
-  yaml_edit: ^2.0.1
+  yaml_edit: ^2.0.2
 
 
 
@@ -99,7 +102,7 @@ dev_dependencies:
     sdk: flutter
 
   # https://pub.dev/packages/build_runner
-  build_runner: ^2.1.7
+  build_runner: ^2.1.8
 
   # https://pub.dev/packages/chopper_generator
   chopper_generator: ^4.0.5

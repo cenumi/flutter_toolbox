@@ -46,6 +46,7 @@ class _ProjectDetailPageState extends ConsumerState<ProjectDetailPage> {
   @override
   Widget build(BuildContext context) {
     ref.watch(_viewModelProvider.notifier);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.path.split(Platform.pathSeparator).last),

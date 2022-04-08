@@ -1,24 +1,22 @@
 part of 'page.dart';
 
-final _viewModelProvider = StateNotifierProvider.autoDispose<_ViewModel, _ProjectDetailState>(
+final _viewModelProvider = StateNotifierProvider<_ViewModel, ProjectDetailState>(
   (ref) => _ViewModel(ref.read),
 );
 
 @freezed
-class _ProjectDetailState with _$_ProjectDetailState {
-  const factory _ProjectDetailState({
+class ProjectDetailState with _$ProjectDetailState {
+  const factory ProjectDetailState({
     Pubspec? pubspec,
     DateTime? lastUpdateTime,
-  }) = __ProjectDetailState;
-
-  const _ProjectDetailState._();
+  }) = _ProjectDetailState;
 }
 
-class _ViewModel extends StateNotifier<_ProjectDetailState> {
+class _ViewModel extends StateNotifier<ProjectDetailState> {
   _ViewModel(Reader read)
       : _pubService = read(pubServiceProvider),
         _localStorageService = read(localStorageServiceProvider),
-        super(const _ProjectDetailState());
+        super(const ProjectDetailState());
 
   late String path;
   int? id;

@@ -114,7 +114,11 @@ class _ProjectListItem extends ConsumerWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8),
-                      child: FittedBox(child: Text(project.name, style: Theme.of(context).textTheme.titleLarge)),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(project.name, style: Theme.of(context).textTheme.titleLarge),
+                      ),
                     ),
                   ),
                 ],
