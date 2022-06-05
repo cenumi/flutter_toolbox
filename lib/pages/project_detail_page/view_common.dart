@@ -111,8 +111,8 @@ class _HostedDependencyItem extends ConsumerWidget {
                 ...trailingWidgets,
                 IconButton(
                   onPressed: () {
-                    final url = ref.read(appServiceProvider).pubBaseURL;
-                    launch('$url/packages/$name');
+                    final url = ref.read(userConfigsProvider).pubBaseURL;
+                    launchUrlString('$url/packages/$name');
                   },
                   tooltip: 'Open in Pub',
                   icon: const Icon(Icons.open_in_new),
@@ -138,12 +138,12 @@ class _OtherDependencyItem extends ConsumerWidget {
     final dep = dependency;
 
     if (dep is GitDependency) {
-      launch(dep.url.toString());
+      launchUrlString(dep.url.toString());
       return;
     }
 
     if (dep is PathDependency) {
-      launch('file://${dep.path}');
+      launchUrlString('file://${dep.path}');
       return;
     }
   }

@@ -9,6 +9,7 @@ class ProjectDetailState with _$ProjectDetailState {
   const factory ProjectDetailState({
     Pubspec? pubspec,
     DateTime? lastUpdateTime,
+    @Default([]) List<String> errorMessages,
   }) = _ProjectDetailState;
 }
 
@@ -63,49 +64,36 @@ class _ViewModel extends StateNotifier<ProjectDetailState> {
 
     await Future.wait([for (final name in toUpdate) _fetchVersion(name, versions, errorList)]);
 
-    state = state.copyWith(lastUpdateTime: lastUpdateTime);
+    state = state.copyWith(lastUpdateTime: lastUpdateTime, errorMessages: errorList);
 
     await _localStorageService.db.writeTxn((db) async {
       db.dependencyVersions.putAll(versions, replaceOnConflict: true);
     });
-
-    if (errorList.isNotEmpty) {
-      showSnackBar(
-        '$errorList Fetch Error',
-        action: SnackBarAction(label: 'Retry Failed', onPressed: () => fetchUpdates(names: errorList)),
-      );
-    }
   }
 
   Future<void> _fetchVersion(String name, List<DependencyVersion> versions, List<String> errorList) async {
     try {
-      final onlineVersions = (await _pubService.getVersions(name)).body;
-      if (onlineVersions != null) {
-        versions.add(
-          DependencyVersion(
-            name: name,
-            stableVersion: onlineVersions.latestVersion,
-            preReleaseVersion: onlineVersions.latestPreReleaseVersion,
-            preReleasing:
-                Version.parse(onlineVersions.latestVersion) < Version.parse(onlineVersions.latestPreReleaseVersion),
-            updateTime: lastUpdateTime!,
-          ),
-        );
-      }
+      final onlineVersions = await _pubService.getVersions(name);
+      versions.add(
+        DependencyVersion(
+          name: name,
+          stableVersion: onlineVersions.latestVersion,
+          preReleaseVersion: onlineVersions.latestPreReleaseVersion,
+          preReleasing:
+              Version.parse(onlineVersions.latestVersion) < Version.parse(onlineVersions.latestPreReleaseVersion),
+          updateTime: lastUpdateTime!,
+        ),
+      );
     } catch (e) {
       errorList.add(name);
     }
   }
 
   Future<void> editDependency(String name, String version, {required bool isDevDependency}) async {
-    try {
-      final editor = YamlEditor(await yamlFile!.readAsString());
-      editor.update([if (isDevDependency) 'dev_dependencies' else 'dependencies', name], version);
-      yamlFile!.writeAsString(editor.toString());
-      state = state.copyWith(pubspec: Pubspec.parse(editor.toString()));
-    } catch (e) {
-      showSnackBar(e.toString());
-    }
+    final editor = YamlEditor(await yamlFile!.readAsString());
+    editor.update([if (isDevDependency) 'dev_dependencies' else 'dependencies', name], version);
+    yamlFile!.writeAsString(editor.toString());
+    state = state.copyWith(pubspec: Pubspec.parse(editor.toString()));
   }
 
   Future<void> editVersion(String version) async {
@@ -114,11 +102,5 @@ class _ViewModel extends StateNotifier<ProjectDetailState> {
     editor.update(['version'], version);
     yamlFile!.writeAsString(editor.toString());
     state = state.copyWith(pubspec: Pubspec.parse(editor.toString()));
-  }
-
-  void showSnackBar(String text, {SnackBarAction? action}) {
-    Globals.scaffoldMessenger.showSnackBar(
-      SnackBar(content: Text(text), duration: const Duration(seconds: 30), action: action),
-    );
   }
 }

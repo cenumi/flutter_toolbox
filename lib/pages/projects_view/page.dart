@@ -7,6 +7,7 @@ import 'package:flutter_toolbox/models/project_models.dart';
 import 'package:flutter_toolbox/pages/project_detail_page/page.dart';
 import 'package:flutter_toolbox/services/local_storage_service.dart';
 import 'package:process/process.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProjectsPage extends StatelessWidget {
   const ProjectsPage({Key? key}) : super(key: key);
@@ -134,7 +135,7 @@ class _ProjectListItem extends ConsumerWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () => launch('file://${project.path}'),
+                    onPressed: () => launchUrlString('file://${project.path}'),
                     icon: const Icon(Icons.folder_open),
                     splashRadius: 24,
                   ),

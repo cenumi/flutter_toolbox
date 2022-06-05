@@ -42,10 +42,14 @@ part 'flutter_model.freezed.dart';
 // }
 
 enum SupportedPlatform {
-  macOS,
-  windows,
-  web,
-  linux,
+  macOS(settingsName: 'enable-macos-desktop'),
+  windows(settingsName: 'enable-windows-desktop'),
+  web(settingsName: 'enable-web'),
+  linux(settingsName: 'enable-linux-desktop');
+
+  const SupportedPlatform({required this.settingsName});
+
+  final String settingsName;
 }
 
 @freezed
@@ -67,15 +71,14 @@ class FlutterSettingsInfo with _$FlutterSettingsInfo {
 
     for (final line in lines) {
       final realLine = line.trim();
-      if (realLine.startsWith('enable-macos-desktop')) {
-        platforms[SupportedPlatform.macOS] = realLine.contains('true');
-      } else if (realLine.startsWith('enable-windows-desktop')) {
-        platforms[SupportedPlatform.windows] = realLine.contains('true');
-      } else if (realLine.startsWith('enable-web')) {
-        platforms[SupportedPlatform.web] = realLine.contains('true');
-      } else if (realLine.startsWith('enable-linux-desktop')) {
-        platforms[SupportedPlatform.linux] = realLine.contains('true');
-      } else if (realLine.startsWith('Analytics')) {
+      for (final platform in SupportedPlatform.values) {
+        if (realLine.startsWith(platform.settingsName)) {
+          platforms[platform] = realLine.contains('true');
+          break;
+        }
+      }
+
+      if (realLine.startsWith('Analytics')) {
         analyticsEnabled = realLine.contains('enabled');
       }
     }

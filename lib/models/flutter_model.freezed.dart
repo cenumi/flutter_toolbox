@@ -12,24 +12,7 @@ part of 'flutter_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$FlutterSettingsInfoTearOff {
-  const _$FlutterSettingsInfoTearOff();
-
-  _FlutterSettingsInfo call(
-      {required bool analyticsEnabled,
-      required Map<SupportedPlatform, bool> platforms}) {
-    return _FlutterSettingsInfo(
-      analyticsEnabled: analyticsEnabled,
-      platforms: platforms,
-    );
-  }
-}
-
-/// @nodoc
-const $FlutterSettingsInfo = _$FlutterSettingsInfoTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$FlutterSettingsInfo {
@@ -78,38 +61,38 @@ class _$FlutterSettingsInfoCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FlutterSettingsInfoCopyWith<$Res>
+abstract class _$$_FlutterSettingsInfoCopyWith<$Res>
     implements $FlutterSettingsInfoCopyWith<$Res> {
-  factory _$FlutterSettingsInfoCopyWith(_FlutterSettingsInfo value,
-          $Res Function(_FlutterSettingsInfo) then) =
-      __$FlutterSettingsInfoCopyWithImpl<$Res>;
+  factory _$$_FlutterSettingsInfoCopyWith(_$_FlutterSettingsInfo value,
+          $Res Function(_$_FlutterSettingsInfo) then) =
+      __$$_FlutterSettingsInfoCopyWithImpl<$Res>;
   @override
   $Res call({bool analyticsEnabled, Map<SupportedPlatform, bool> platforms});
 }
 
 /// @nodoc
-class __$FlutterSettingsInfoCopyWithImpl<$Res>
+class __$$_FlutterSettingsInfoCopyWithImpl<$Res>
     extends _$FlutterSettingsInfoCopyWithImpl<$Res>
-    implements _$FlutterSettingsInfoCopyWith<$Res> {
-  __$FlutterSettingsInfoCopyWithImpl(
-      _FlutterSettingsInfo _value, $Res Function(_FlutterSettingsInfo) _then)
-      : super(_value, (v) => _then(v as _FlutterSettingsInfo));
+    implements _$$_FlutterSettingsInfoCopyWith<$Res> {
+  __$$_FlutterSettingsInfoCopyWithImpl(_$_FlutterSettingsInfo _value,
+      $Res Function(_$_FlutterSettingsInfo) _then)
+      : super(_value, (v) => _then(v as _$_FlutterSettingsInfo));
 
   @override
-  _FlutterSettingsInfo get _value => super._value as _FlutterSettingsInfo;
+  _$_FlutterSettingsInfo get _value => super._value as _$_FlutterSettingsInfo;
 
   @override
   $Res call({
     Object? analyticsEnabled = freezed,
     Object? platforms = freezed,
   }) {
-    return _then(_FlutterSettingsInfo(
+    return _then(_$_FlutterSettingsInfo(
       analyticsEnabled: analyticsEnabled == freezed
           ? _value.analyticsEnabled
           : analyticsEnabled // ignore: cast_nullable_to_non_nullable
               as bool,
       platforms: platforms == freezed
-          ? _value.platforms
+          ? _value._platforms
           : platforms // ignore: cast_nullable_to_non_nullable
               as Map<SupportedPlatform, bool>,
     ));
@@ -120,13 +103,19 @@ class __$FlutterSettingsInfoCopyWithImpl<$Res>
 
 class _$_FlutterSettingsInfo extends _FlutterSettingsInfo {
   const _$_FlutterSettingsInfo(
-      {required this.analyticsEnabled, required this.platforms})
-      : super._();
+      {required this.analyticsEnabled,
+      required final Map<SupportedPlatform, bool> platforms})
+      : _platforms = platforms,
+        super._();
 
   @override
   final bool analyticsEnabled;
+  final Map<SupportedPlatform, bool> _platforms;
   @override
-  final Map<SupportedPlatform, bool> platforms;
+  Map<SupportedPlatform, bool> get platforms {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_platforms);
+  }
 
   @override
   String toString() {
@@ -137,70 +126,43 @@ class _$_FlutterSettingsInfo extends _FlutterSettingsInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FlutterSettingsInfo &&
+            other is _$_FlutterSettingsInfo &&
             const DeepCollectionEquality()
                 .equals(other.analyticsEnabled, analyticsEnabled) &&
-            const DeepCollectionEquality().equals(other.platforms, platforms));
+            const DeepCollectionEquality()
+                .equals(other._platforms, _platforms));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(analyticsEnabled),
-      const DeepCollectionEquality().hash(platforms));
+      const DeepCollectionEquality().hash(_platforms));
 
   @JsonKey(ignore: true)
   @override
-  _$FlutterSettingsInfoCopyWith<_FlutterSettingsInfo> get copyWith =>
-      __$FlutterSettingsInfoCopyWithImpl<_FlutterSettingsInfo>(
+  _$$_FlutterSettingsInfoCopyWith<_$_FlutterSettingsInfo> get copyWith =>
+      __$$_FlutterSettingsInfoCopyWithImpl<_$_FlutterSettingsInfo>(
           this, _$identity);
 }
 
 abstract class _FlutterSettingsInfo extends FlutterSettingsInfo {
   const factory _FlutterSettingsInfo(
-          {required bool analyticsEnabled,
-          required Map<SupportedPlatform, bool> platforms}) =
+          {required final bool analyticsEnabled,
+          required final Map<SupportedPlatform, bool> platforms}) =
       _$_FlutterSettingsInfo;
   const _FlutterSettingsInfo._() : super._();
 
   @override
-  bool get analyticsEnabled;
+  bool get analyticsEnabled => throw _privateConstructorUsedError;
   @override
-  Map<SupportedPlatform, bool> get platforms;
+  Map<SupportedPlatform, bool> get platforms =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FlutterSettingsInfoCopyWith<_FlutterSettingsInfo> get copyWith =>
+  _$$_FlutterSettingsInfoCopyWith<_$_FlutterSettingsInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$FlutterVersionInfoTearOff {
-  const _$FlutterVersionInfoTearOff();
-
-  _FlutterVersionInfo call(
-      {required String flutterVersion,
-      required String branch,
-      required String repo,
-      required String framework,
-      required String frameworkTime,
-      required String engine,
-      required String dartVersion,
-      required String devToolsVersion}) {
-    return _FlutterVersionInfo(
-      flutterVersion: flutterVersion,
-      branch: branch,
-      repo: repo,
-      framework: framework,
-      frameworkTime: frameworkTime,
-      engine: engine,
-      dartVersion: dartVersion,
-      devToolsVersion: devToolsVersion,
-    );
-  }
-}
-
-/// @nodoc
-const $FlutterVersionInfo = _$FlutterVersionInfoTearOff();
 
 /// @nodoc
 mixin _$FlutterVersionInfo {
@@ -292,11 +254,11 @@ class _$FlutterVersionInfoCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$FlutterVersionInfoCopyWith<$Res>
+abstract class _$$_FlutterVersionInfoCopyWith<$Res>
     implements $FlutterVersionInfoCopyWith<$Res> {
-  factory _$FlutterVersionInfoCopyWith(
-          _FlutterVersionInfo value, $Res Function(_FlutterVersionInfo) then) =
-      __$FlutterVersionInfoCopyWithImpl<$Res>;
+  factory _$$_FlutterVersionInfoCopyWith(_$_FlutterVersionInfo value,
+          $Res Function(_$_FlutterVersionInfo) then) =
+      __$$_FlutterVersionInfoCopyWithImpl<$Res>;
   @override
   $Res call(
       {String flutterVersion,
@@ -310,15 +272,15 @@ abstract class _$FlutterVersionInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FlutterVersionInfoCopyWithImpl<$Res>
+class __$$_FlutterVersionInfoCopyWithImpl<$Res>
     extends _$FlutterVersionInfoCopyWithImpl<$Res>
-    implements _$FlutterVersionInfoCopyWith<$Res> {
-  __$FlutterVersionInfoCopyWithImpl(
-      _FlutterVersionInfo _value, $Res Function(_FlutterVersionInfo) _then)
-      : super(_value, (v) => _then(v as _FlutterVersionInfo));
+    implements _$$_FlutterVersionInfoCopyWith<$Res> {
+  __$$_FlutterVersionInfoCopyWithImpl(
+      _$_FlutterVersionInfo _value, $Res Function(_$_FlutterVersionInfo) _then)
+      : super(_value, (v) => _then(v as _$_FlutterVersionInfo));
 
   @override
-  _FlutterVersionInfo get _value => super._value as _FlutterVersionInfo;
+  _$_FlutterVersionInfo get _value => super._value as _$_FlutterVersionInfo;
 
   @override
   $Res call({
@@ -331,7 +293,7 @@ class __$FlutterVersionInfoCopyWithImpl<$Res>
     Object? dartVersion = freezed,
     Object? devToolsVersion = freezed,
   }) {
-    return _then(_FlutterVersionInfo(
+    return _then(_$_FlutterVersionInfo(
       flutterVersion: flutterVersion == freezed
           ? _value.flutterVersion
           : flutterVersion // ignore: cast_nullable_to_non_nullable
@@ -408,7 +370,7 @@ class _$_FlutterVersionInfo extends _FlutterVersionInfo {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FlutterVersionInfo &&
+            other is _$_FlutterVersionInfo &&
             const DeepCollectionEquality()
                 .equals(other.flutterVersion, flutterVersion) &&
             const DeepCollectionEquality().equals(other.branch, branch) &&
@@ -437,40 +399,41 @@ class _$_FlutterVersionInfo extends _FlutterVersionInfo {
 
   @JsonKey(ignore: true)
   @override
-  _$FlutterVersionInfoCopyWith<_FlutterVersionInfo> get copyWith =>
-      __$FlutterVersionInfoCopyWithImpl<_FlutterVersionInfo>(this, _$identity);
+  _$$_FlutterVersionInfoCopyWith<_$_FlutterVersionInfo> get copyWith =>
+      __$$_FlutterVersionInfoCopyWithImpl<_$_FlutterVersionInfo>(
+          this, _$identity);
 }
 
 abstract class _FlutterVersionInfo extends FlutterVersionInfo {
   const factory _FlutterVersionInfo(
-      {required String flutterVersion,
-      required String branch,
-      required String repo,
-      required String framework,
-      required String frameworkTime,
-      required String engine,
-      required String dartVersion,
-      required String devToolsVersion}) = _$_FlutterVersionInfo;
+      {required final String flutterVersion,
+      required final String branch,
+      required final String repo,
+      required final String framework,
+      required final String frameworkTime,
+      required final String engine,
+      required final String dartVersion,
+      required final String devToolsVersion}) = _$_FlutterVersionInfo;
   const _FlutterVersionInfo._() : super._();
 
   @override
-  String get flutterVersion;
+  String get flutterVersion => throw _privateConstructorUsedError;
   @override
-  String get branch;
+  String get branch => throw _privateConstructorUsedError;
   @override
-  String get repo;
+  String get repo => throw _privateConstructorUsedError;
   @override
-  String get framework;
+  String get framework => throw _privateConstructorUsedError;
   @override
-  String get frameworkTime;
+  String get frameworkTime => throw _privateConstructorUsedError;
   @override
-  String get engine;
+  String get engine => throw _privateConstructorUsedError;
   @override
-  String get dartVersion;
+  String get dartVersion => throw _privateConstructorUsedError;
   @override
-  String get devToolsVersion;
+  String get devToolsVersion => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$FlutterVersionInfoCopyWith<_FlutterVersionInfo> get copyWith =>
+  _$$_FlutterVersionInfoCopyWith<_$_FlutterVersionInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,28 +12,7 @@ part of 'project_models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$ProjectTearOff {
-  const _$ProjectTearOff();
-
-  _Project call(
-      {int? id,
-      @Index(unique: true) required String path,
-      required String name,
-      required String description}) {
-    return _Project(
-      id: id,
-      path: path,
-      name: name,
-      description: description,
-    );
-  }
-}
-
-/// @nodoc
-const $Project = _$ProjectTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$Project {
@@ -95,9 +74,10 @@ class _$ProjectCopyWithImpl<$Res> implements $ProjectCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
-  factory _$ProjectCopyWith(_Project value, $Res Function(_Project) then) =
-      __$ProjectCopyWithImpl<$Res>;
+abstract class _$$_ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
+  factory _$$_ProjectCopyWith(
+          _$_Project value, $Res Function(_$_Project) then) =
+      __$$_ProjectCopyWithImpl<$Res>;
   @override
   $Res call(
       {int? id,
@@ -107,13 +87,13 @@ abstract class _$ProjectCopyWith<$Res> implements $ProjectCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
-    implements _$ProjectCopyWith<$Res> {
-  __$ProjectCopyWithImpl(_Project _value, $Res Function(_Project) _then)
-      : super(_value, (v) => _then(v as _Project));
+class __$$_ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
+    implements _$$_ProjectCopyWith<$Res> {
+  __$$_ProjectCopyWithImpl(_$_Project _value, $Res Function(_$_Project) _then)
+      : super(_value, (v) => _then(v as _$_Project));
 
   @override
-  _Project get _value => super._value as _Project;
+  _$_Project get _value => super._value as _$_Project;
 
   @override
   $Res call({
@@ -122,7 +102,7 @@ class __$ProjectCopyWithImpl<$Res> extends _$ProjectCopyWithImpl<$Res>
     Object? name = freezed,
     Object? description = freezed,
   }) {
-    return _then(_Project(
+    return _then(_$_Project(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -172,7 +152,7 @@ class _$_Project extends _Project {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Project &&
+            other is _$_Project &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.path, path) &&
             const DeepCollectionEquality().equals(other.name, name) &&
@@ -190,57 +170,32 @@ class _$_Project extends _Project {
 
   @JsonKey(ignore: true)
   @override
-  _$ProjectCopyWith<_Project> get copyWith =>
-      __$ProjectCopyWithImpl<_Project>(this, _$identity);
+  _$$_ProjectCopyWith<_$_Project> get copyWith =>
+      __$$_ProjectCopyWithImpl<_$_Project>(this, _$identity);
 }
 
 abstract class _Project extends Project {
   const factory _Project(
-      {int? id,
-      @Index(unique: true) required String path,
-      required String name,
-      required String description}) = _$_Project;
+      {final int? id,
+      @Index(unique: true) required final String path,
+      required final String name,
+      required final String description}) = _$_Project;
   const _Project._() : super._();
 
   @override
-  int? get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
   @Index(unique: true)
-  String get path;
+  String get path => throw _privateConstructorUsedError;
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ProjectCopyWith<_Project> get copyWith =>
+  _$$_ProjectCopyWith<_$_Project> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$DependencyVersionTearOff {
-  const _$DependencyVersionTearOff();
-
-  _DependencyVersion call(
-      {int? id,
-      @Index(unique: true) required String name,
-      required String stableVersion,
-      required String preReleaseVersion,
-      required bool preReleasing,
-      required DateTime updateTime}) {
-    return _DependencyVersion(
-      id: id,
-      name: name,
-      stableVersion: stableVersion,
-      preReleaseVersion: preReleaseVersion,
-      preReleasing: preReleasing,
-      updateTime: updateTime,
-    );
-  }
-}
-
-/// @nodoc
-const $DependencyVersion = _$DependencyVersionTearOff();
 
 /// @nodoc
 mixin _$DependencyVersion {
@@ -319,11 +274,11 @@ class _$DependencyVersionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$DependencyVersionCopyWith<$Res>
+abstract class _$$_DependencyVersionCopyWith<$Res>
     implements $DependencyVersionCopyWith<$Res> {
-  factory _$DependencyVersionCopyWith(
-          _DependencyVersion value, $Res Function(_DependencyVersion) then) =
-      __$DependencyVersionCopyWithImpl<$Res>;
+  factory _$$_DependencyVersionCopyWith(_$_DependencyVersion value,
+          $Res Function(_$_DependencyVersion) then) =
+      __$$_DependencyVersionCopyWithImpl<$Res>;
   @override
   $Res call(
       {int? id,
@@ -335,15 +290,15 @@ abstract class _$DependencyVersionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$DependencyVersionCopyWithImpl<$Res>
+class __$$_DependencyVersionCopyWithImpl<$Res>
     extends _$DependencyVersionCopyWithImpl<$Res>
-    implements _$DependencyVersionCopyWith<$Res> {
-  __$DependencyVersionCopyWithImpl(
-      _DependencyVersion _value, $Res Function(_DependencyVersion) _then)
-      : super(_value, (v) => _then(v as _DependencyVersion));
+    implements _$$_DependencyVersionCopyWith<$Res> {
+  __$$_DependencyVersionCopyWithImpl(
+      _$_DependencyVersion _value, $Res Function(_$_DependencyVersion) _then)
+      : super(_value, (v) => _then(v as _$_DependencyVersion));
 
   @override
-  _DependencyVersion get _value => super._value as _DependencyVersion;
+  _$_DependencyVersion get _value => super._value as _$_DependencyVersion;
 
   @override
   $Res call({
@@ -354,7 +309,7 @@ class __$DependencyVersionCopyWithImpl<$Res>
     Object? preReleasing = freezed,
     Object? updateTime = freezed,
   }) {
-    return _then(_DependencyVersion(
+    return _then(_$_DependencyVersion(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -418,7 +373,7 @@ class _$_DependencyVersion extends _DependencyVersion {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DependencyVersion &&
+            other is _$_DependencyVersion &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
@@ -443,35 +398,36 @@ class _$_DependencyVersion extends _DependencyVersion {
 
   @JsonKey(ignore: true)
   @override
-  _$DependencyVersionCopyWith<_DependencyVersion> get copyWith =>
-      __$DependencyVersionCopyWithImpl<_DependencyVersion>(this, _$identity);
+  _$$_DependencyVersionCopyWith<_$_DependencyVersion> get copyWith =>
+      __$$_DependencyVersionCopyWithImpl<_$_DependencyVersion>(
+          this, _$identity);
 }
 
 abstract class _DependencyVersion extends DependencyVersion {
   const factory _DependencyVersion(
-      {int? id,
-      @Index(unique: true) required String name,
-      required String stableVersion,
-      required String preReleaseVersion,
-      required bool preReleasing,
-      required DateTime updateTime}) = _$_DependencyVersion;
+      {final int? id,
+      @Index(unique: true) required final String name,
+      required final String stableVersion,
+      required final String preReleaseVersion,
+      required final bool preReleasing,
+      required final DateTime updateTime}) = _$_DependencyVersion;
   const _DependencyVersion._() : super._();
 
   @override
-  int? get id;
+  int? get id => throw _privateConstructorUsedError;
   @override
   @Index(unique: true)
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
-  String get stableVersion;
+  String get stableVersion => throw _privateConstructorUsedError;
   @override
-  String get preReleaseVersion;
+  String get preReleaseVersion => throw _privateConstructorUsedError;
   @override
-  bool get preReleasing;
+  bool get preReleasing => throw _privateConstructorUsedError;
   @override
-  DateTime get updateTime;
+  DateTime get updateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$DependencyVersionCopyWith<_DependencyVersion> get copyWith =>
+  _$$_DependencyVersionCopyWith<_$_DependencyVersion> get copyWith =>
       throw _privateConstructorUsedError;
 }

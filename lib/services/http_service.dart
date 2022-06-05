@@ -1,78 +1,31 @@
-import 'dart:async';
-
-import 'package:flutter_toolbox/core/meta.dart';
+import 'package:dio/dio.dart';
+import 'package:dio/native_imp.dart';
 import 'package:flutter_toolbox/core/packages.dart';
-import 'package:flutter_toolbox/services/app_service.dart';
+import 'package:flutter_toolbox/domain/user_configs_provider.dart';
+import 'package:flutter_toolbox/models/pub_models.dart';
 
-class PubHttpClient {
-  PubHttpClient(Reader read, this.factories)
-      : client = ChopperClient(
-          converter: JsonSerializableConverter(factories),
-          interceptors: [PubRequestInterceptor(read)],
-        );
+final pubServiceProvider = Provider((ref) {
+  return PubService(ref.watch(userConfigsProvider.notifier));
+});
 
-  final Map<Type, JsonFactory> factories;
-  final ChopperClient client;
-}
+class PubService extends DioForNative {
+  PubService(UserConfigsController userConfigsController) : super(BaseOptions(headers: {})) {
+    interceptors.add(PubUrlInterceptor(userConfigsController));
+  }
 
-class PubRequestInterceptor extends RequestInterceptor {
-  final Reader read;
-
-  PubRequestInterceptor(this.read);
-
-  @override
-  FutureOr<Request> onRequest(Request request) {
-    final url = read(appServiceProvider).pubBaseURL;
-    if (request.baseUrl == url) {
-      return request;
-    }
-    return request.copyWith(baseUrl: url);
+  Future<PubVersions> getVersions(String name) async {
+    final res = await get('/packages/$name.json');
+    return PubVersions.fromJson(res.data as Map<String, dynamic>);
   }
 }
 
-typedef JsonFactory<T> = T Function(Map<String, dynamic> json);
+class PubUrlInterceptor extends Interceptor {
+  PubUrlInterceptor(this._userConfigsController);
 
-class JsonSerializableConverter extends JsonConverter {
-  const JsonSerializableConverter(this.factories);
-
-  final Map<Type, JsonFactory> factories;
-
-  T? _decodeMap<T>(Map<String, dynamic> values) {
-    /// Get jsonFactory using Type parameters
-    /// if not found or invalid, throw error or return null
-    final jsonFactory = factories[T];
-    if (jsonFactory == null || jsonFactory is! JsonFactory<T>) {
-      /// throw serializer not found error;
-      return null;
-    }
-
-    return jsonFactory(values);
-  }
-
-  List<T> _decodeList<T>(Iterable values) => values.where((v) => v != null).map<T>((v) => _decode<T>(v) as T).toList();
-
-  dynamic _decode<T>(dynamic entity) {
-    if (entity is Iterable) return _decodeList<T>(entity);
-
-    if (entity is Map<String, dynamic>) return _decodeMap<T>(entity);
-
-    return entity;
-  }
+  final UserConfigsController _userConfigsController;
 
   @override
-  Response<ResultType> convertResponse<ResultType, Item>(Response response) {
-    // use [JsonConverter] to decode json
-    final jsonRes = super.convertResponse(response);
-
-    return jsonRes.copyWith<ResultType>(body: _decode<ResultType>(jsonRes.body) as ResultType);
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    handler.next(options.copyWith(baseUrl: _userConfigsController.pubBaseURL));
   }
-
-// Response convertError<ResultType, Item>(Response response) {
-//   // use [JsonConverter] to decode json
-//   final jsonRes = super.convertError(response);
-//
-//   return jsonRes.copyWith<ResourceError>(
-//     body: ResourceError.fromJsonFactory(jsonRes.body),
-//   );
-// }
 }

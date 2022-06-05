@@ -6,147 +6,143 @@ part of 'project_models.dart';
 // IsarCollectionGenerator
 // **************************************************************************
 
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, unused_local_variable
 
 extension GetProjectCollection on Isar {
-  IsarCollection<Project> get projects {
-    return getCollection('Project');
-  }
+  IsarCollection<Project> get projects => getCollection();
 }
 
-final ProjectSchema = CollectionSchema(
+const ProjectSchema = CollectionSchema(
   name: 'Project',
   schema:
       '{"name":"Project","idName":"id","properties":[{"name":"description","type":"String"},{"name":"name","type":"String"},{"name":"path","type":"String"}],"indexes":[{"name":"path","unique":true,"properties":[{"name":"path","type":"Hash","caseSensitive":true}]}],"links":[]}',
-  nativeAdapter: const _ProjectNativeAdapter(),
-  webAdapter: const _ProjectWebAdapter(),
   idName: 'id',
   propertyIds: {'description': 0, 'name': 1, 'path': 2},
   listProperties: {},
   indexIds: {'path': 0},
-  indexTypes: {
+  indexValueTypes: {
     'path': [
-      NativeIndexType.stringHash,
+      IndexValueType.stringHash,
     ]
   },
   linkIds: {},
-  backlinkIds: {},
-  linkedCollections: [],
-  getId: (obj) {
-    if (obj.id == Isar.autoIncrement) {
-      return null;
-    } else {
-      return obj.id;
-    }
-  },
-  setId: null,
-  getLinks: (obj) => [],
-  version: 2,
+  backlinkLinkNames: {},
+  getId: _projectGetId,
+  getLinks: _projectGetLinks,
+  attachLinks: _projectAttachLinks,
+  serializeNative: _projectSerializeNative,
+  deserializeNative: _projectDeserializeNative,
+  deserializePropNative: _projectDeserializePropNative,
+  serializeWeb: _projectSerializeWeb,
+  deserializeWeb: _projectDeserializeWeb,
+  deserializePropWeb: _projectDeserializePropWeb,
+  version: 3,
 );
 
-class _ProjectWebAdapter extends IsarWebTypeAdapter<Project> {
-  const _ProjectWebAdapter();
-
-  @override
-  Object serialize(IsarCollection<Project> collection, Project object) {
-    final jsObj = IsarNative.newJsObject();
-    IsarNative.jsObjectSet(jsObj, 'description', object.description);
-    IsarNative.jsObjectSet(jsObj, 'id', object.id);
-    IsarNative.jsObjectSet(jsObj, 'name', object.name);
-    IsarNative.jsObjectSet(jsObj, 'path', object.path);
-    return jsObj;
+int? _projectGetId(Project object) {
+  if (object.id == Isar.autoIncrement) {
+    return null;
+  } else {
+    return object.id;
   }
-
-  @override
-  Project deserialize(IsarCollection<Project> collection, dynamic jsObj) {
-    final object = Project(
-      description: IsarNative.jsObjectGet(jsObj, 'description') ?? '',
-      id: IsarNative.jsObjectGet(jsObj, 'id'),
-      name: IsarNative.jsObjectGet(jsObj, 'name') ?? '',
-      path: IsarNative.jsObjectGet(jsObj, 'path') ?? '',
-    );
-    return object;
-  }
-
-  @override
-  P deserializeProperty<P>(Object jsObj, String propertyName) {
-    switch (propertyName) {
-      case 'description':
-        return (IsarNative.jsObjectGet(jsObj, 'description') ?? '') as P;
-      case 'id':
-        return (IsarNative.jsObjectGet(jsObj, 'id')) as P;
-      case 'name':
-        return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
-      case 'path':
-        return (IsarNative.jsObjectGet(jsObj, 'path') ?? '') as P;
-      default:
-        throw 'Illegal propertyName';
-    }
-  }
-
-  @override
-  void attachLinks(Isar isar, int id, Project object) {}
 }
 
-class _ProjectNativeAdapter extends IsarNativeTypeAdapter<Project> {
-  const _ProjectNativeAdapter();
-
-  @override
-  void serialize(IsarCollection<Project> collection, IsarRawObject rawObj,
-      Project object, int staticSize, List<int> offsets, AdapterAlloc alloc) {
-    var dynamicSize = 0;
-    final value0 = object.description;
-    final _description = IsarBinaryWriter.utf8Encoder.convert(value0);
-    dynamicSize += (_description.length) as int;
-    final value1 = object.name;
-    final _name = IsarBinaryWriter.utf8Encoder.convert(value1);
-    dynamicSize += (_name.length) as int;
-    final value2 = object.path;
-    final _path = IsarBinaryWriter.utf8Encoder.convert(value2);
-    dynamicSize += (_path.length) as int;
-    final size = staticSize + dynamicSize;
-
-    rawObj.buffer = alloc(size);
-    rawObj.buffer_length = size;
-    final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
-    final writer = IsarBinaryWriter(buffer, staticSize);
-    writer.writeBytes(offsets[0], _description);
-    writer.writeBytes(offsets[1], _name);
-    writer.writeBytes(offsets[2], _path);
-  }
-
-  @override
-  Project deserialize(IsarCollection<Project> collection, int id,
-      IsarBinaryReader reader, List<int> offsets) {
-    final object = Project(
-      description: reader.readString(offsets[0]),
-      id: id,
-      name: reader.readString(offsets[1]),
-      path: reader.readString(offsets[2]),
-    );
-    return object;
-  }
-
-  @override
-  P deserializeProperty<P>(
-      int id, IsarBinaryReader reader, int propertyIndex, int offset) {
-    switch (propertyIndex) {
-      case -1:
-        return id as P;
-      case 0:
-        return (reader.readString(offset)) as P;
-      case 1:
-        return (reader.readString(offset)) as P;
-      case 2:
-        return (reader.readString(offset)) as P;
-      default:
-        throw 'Illegal propertyIndex';
-    }
-  }
-
-  @override
-  void attachLinks(Isar isar, int id, Project object) {}
+List<IsarLinkBase> _projectGetLinks(Project object) {
+  return [];
 }
+
+void _projectSerializeNative(
+    IsarCollection<Project> collection,
+    IsarRawObject rawObj,
+    Project object,
+    int staticSize,
+    List<int> offsets,
+    AdapterAlloc alloc) {
+  var dynamicSize = 0;
+  final value0 = object.description;
+  final _description = IsarBinaryWriter.utf8Encoder.convert(value0);
+  dynamicSize += (_description.length) as int;
+  final value1 = object.name;
+  final _name = IsarBinaryWriter.utf8Encoder.convert(value1);
+  dynamicSize += (_name.length) as int;
+  final value2 = object.path;
+  final _path = IsarBinaryWriter.utf8Encoder.convert(value2);
+  dynamicSize += (_path.length) as int;
+  final size = staticSize + dynamicSize;
+
+  rawObj.buffer = alloc(size);
+  rawObj.buffer_length = size;
+  final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
+  final writer = IsarBinaryWriter(buffer, staticSize);
+  writer.writeBytes(offsets[0], _description);
+  writer.writeBytes(offsets[1], _name);
+  writer.writeBytes(offsets[2], _path);
+}
+
+Project _projectDeserializeNative(IsarCollection<Project> collection, int id,
+    IsarBinaryReader reader, List<int> offsets) {
+  final object = Project(
+    description: reader.readString(offsets[0]),
+    id: id,
+    name: reader.readString(offsets[1]),
+    path: reader.readString(offsets[2]),
+  );
+  return object;
+}
+
+P _projectDeserializePropNative<P>(
+    int id, IsarBinaryReader reader, int propertyIndex, int offset) {
+  switch (propertyIndex) {
+    case -1:
+      return id as P;
+    case 0:
+      return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readString(offset)) as P;
+    default:
+      throw 'Illegal propertyIndex';
+  }
+}
+
+dynamic _projectSerializeWeb(
+    IsarCollection<Project> collection, Project object) {
+  final jsObj = IsarNative.newJsObject();
+  IsarNative.jsObjectSet(jsObj, 'description', object.description);
+  IsarNative.jsObjectSet(jsObj, 'id', object.id);
+  IsarNative.jsObjectSet(jsObj, 'name', object.name);
+  IsarNative.jsObjectSet(jsObj, 'path', object.path);
+  return jsObj;
+}
+
+Project _projectDeserializeWeb(
+    IsarCollection<Project> collection, dynamic jsObj) {
+  final object = Project(
+    description: IsarNative.jsObjectGet(jsObj, 'description') ?? '',
+    id: IsarNative.jsObjectGet(jsObj, 'id'),
+    name: IsarNative.jsObjectGet(jsObj, 'name') ?? '',
+    path: IsarNative.jsObjectGet(jsObj, 'path') ?? '',
+  );
+  return object;
+}
+
+P _projectDeserializePropWeb<P>(Object jsObj, String propertyName) {
+  switch (propertyName) {
+    case 'description':
+      return (IsarNative.jsObjectGet(jsObj, 'description') ?? '') as P;
+    case 'id':
+      return (IsarNative.jsObjectGet(jsObj, 'id')) as P;
+    case 'name':
+      return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
+    case 'path':
+      return (IsarNative.jsObjectGet(jsObj, 'path') ?? '') as P;
+    default:
+      throw 'Illegal propertyName';
+  }
+}
+
+void _projectAttachLinks(IsarCollection col, int id, Project object) {}
 
 extension ProjectByIndex on IsarCollection<Project> {
   Future<Project?> getByPath(String path) {
@@ -188,114 +184,94 @@ extension ProjectByIndex on IsarCollection<Project> {
 
 extension ProjectQueryWhereSort on QueryBuilder<Project, Project, QWhere> {
   QueryBuilder<Project, Project, QAfterWhere> anyId() {
-    return addWhereClauseInternal(const WhereClause(indexName: null));
+    return addWhereClauseInternal(const IdWhereClause.any());
   }
 
   QueryBuilder<Project, Project, QAfterWhere> anyPath() {
-    return addWhereClauseInternal(const WhereClause(indexName: 'path'));
+    return addWhereClauseInternal(
+        const IndexWhereClause.any(indexName: 'path'));
   }
 }
 
 extension ProjectQueryWhere on QueryBuilder<Project, Project, QWhereClause> {
-  QueryBuilder<Project, Project, QAfterWhereClause> idEqualTo(int? id) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [id],
+  QueryBuilder<Project, Project, QAfterWhereClause> idEqualTo(int id) {
+    return addWhereClauseInternal(IdWhereClause.between(
+      lower: id,
       includeLower: true,
-      upper: [id],
+      upper: id,
       includeUpper: true,
     ));
   }
 
-  QueryBuilder<Project, Project, QAfterWhereClause> idNotEqualTo(int? id) {
+  QueryBuilder<Project, Project, QAfterWhereClause> idNotEqualTo(int id) {
     if (whereSortInternal == Sort.asc) {
-      return addWhereClauseInternal(WhereClause(
-        indexName: null,
-        upper: [id],
-        includeUpper: false,
-      )).addWhereClauseInternal(WhereClause(
-        indexName: null,
-        lower: [id],
-        includeLower: false,
-      ));
+      return addWhereClauseInternal(
+        IdWhereClause.lessThan(upper: id, includeUpper: false),
+      ).addWhereClauseInternal(
+        IdWhereClause.greaterThan(lower: id, includeLower: false),
+      );
     } else {
-      return addWhereClauseInternal(WhereClause(
-        indexName: null,
-        lower: [id],
-        includeLower: false,
-      )).addWhereClauseInternal(WhereClause(
-        indexName: null,
-        upper: [id],
-        includeUpper: false,
-      ));
+      return addWhereClauseInternal(
+        IdWhereClause.greaterThan(lower: id, includeLower: false),
+      ).addWhereClauseInternal(
+        IdWhereClause.lessThan(upper: id, includeUpper: false),
+      );
     }
   }
 
-  QueryBuilder<Project, Project, QAfterWhereClause> idGreaterThan(
-    int? id, {
-    bool include = false,
-  }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [id],
-      includeLower: include,
-    ));
+  QueryBuilder<Project, Project, QAfterWhereClause> idGreaterThan(int id,
+      {bool include = false}) {
+    return addWhereClauseInternal(
+      IdWhereClause.greaterThan(lower: id, includeLower: include),
+    );
   }
 
-  QueryBuilder<Project, Project, QAfterWhereClause> idLessThan(
-    int? id, {
-    bool include = false,
-  }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      upper: [id],
-      includeUpper: include,
-    ));
+  QueryBuilder<Project, Project, QAfterWhereClause> idLessThan(int id,
+      {bool include = false}) {
+    return addWhereClauseInternal(
+      IdWhereClause.lessThan(upper: id, includeUpper: include),
+    );
   }
 
   QueryBuilder<Project, Project, QAfterWhereClause> idBetween(
-    int? lowerId,
-    int? upperId, {
+    int lowerId,
+    int upperId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [lowerId],
+    return addWhereClauseInternal(IdWhereClause.between(
+      lower: lowerId,
       includeLower: includeLower,
-      upper: [upperId],
+      upper: upperId,
       includeUpper: includeUpper,
     ));
   }
 
   QueryBuilder<Project, Project, QAfterWhereClause> pathEqualTo(String path) {
-    return addWhereClauseInternal(WhereClause(
+    return addWhereClauseInternal(IndexWhereClause.equalTo(
       indexName: 'path',
-      lower: [path],
-      includeLower: true,
-      upper: [path],
-      includeUpper: true,
+      value: [path],
     ));
   }
 
   QueryBuilder<Project, Project, QAfterWhereClause> pathNotEqualTo(
       String path) {
     if (whereSortInternal == Sort.asc) {
-      return addWhereClauseInternal(WhereClause(
+      return addWhereClauseInternal(IndexWhereClause.lessThan(
         indexName: 'path',
         upper: [path],
         includeUpper: false,
-      )).addWhereClauseInternal(WhereClause(
+      )).addWhereClauseInternal(IndexWhereClause.greaterThan(
         indexName: 'path',
         lower: [path],
         includeLower: false,
       ));
     } else {
-      return addWhereClauseInternal(WhereClause(
+      return addWhereClauseInternal(IndexWhereClause.greaterThan(
         indexName: 'path',
         lower: [path],
         includeLower: false,
-      )).addWhereClauseInternal(WhereClause(
+      )).addWhereClauseInternal(IndexWhereClause.lessThan(
         indexName: 'path',
         upper: [path],
         includeUpper: false,
@@ -417,7 +393,7 @@ extension ProjectQueryFilter
     ));
   }
 
-  QueryBuilder<Project, Project, QAfterFilterCondition> idEqualTo(int? value) {
+  QueryBuilder<Project, Project, QAfterFilterCondition> idEqualTo(int value) {
     return addFilterConditionInternal(FilterCondition(
       type: ConditionType.eq,
       property: 'id',
@@ -426,7 +402,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> idGreaterThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return addFilterConditionInternal(FilterCondition(
@@ -438,7 +414,7 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> idLessThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return addFilterConditionInternal(FilterCondition(
@@ -450,8 +426,8 @@ extension ProjectQueryFilter
   }
 
   QueryBuilder<Project, Project, QAfterFilterCondition> idBetween(
-    int? lower,
-    int? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -784,20 +760,16 @@ extension ProjectQueryProperty
   }
 }
 
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, unused_local_variable
 
 extension GetDependencyVersionCollection on Isar {
-  IsarCollection<DependencyVersion> get dependencyVersions {
-    return getCollection('DependencyVersion');
-  }
+  IsarCollection<DependencyVersion> get dependencyVersions => getCollection();
 }
 
-final DependencyVersionSchema = CollectionSchema(
+const DependencyVersionSchema = CollectionSchema(
   name: 'DependencyVersion',
   schema:
       '{"name":"DependencyVersion","idName":"id","properties":[{"name":"name","type":"String"},{"name":"preReleaseVersion","type":"String"},{"name":"preReleasing","type":"Bool"},{"name":"stableVersion","type":"String"},{"name":"updateTime","type":"Long"}],"indexes":[{"name":"name","unique":true,"properties":[{"name":"name","type":"Hash","caseSensitive":true}]}],"links":[]}',
-  nativeAdapter: const _DependencyVersionNativeAdapter(),
-  webAdapter: const _DependencyVersionWebAdapter(),
   idName: 'id',
   propertyIds: {
     'name': 0,
@@ -808,171 +780,164 @@ final DependencyVersionSchema = CollectionSchema(
   },
   listProperties: {},
   indexIds: {'name': 0},
-  indexTypes: {
+  indexValueTypes: {
     'name': [
-      NativeIndexType.stringHash,
+      IndexValueType.stringHash,
     ]
   },
   linkIds: {},
-  backlinkIds: {},
-  linkedCollections: [],
-  getId: (obj) {
-    if (obj.id == Isar.autoIncrement) {
-      return null;
-    } else {
-      return obj.id;
-    }
-  },
-  setId: null,
-  getLinks: (obj) => [],
-  version: 2,
+  backlinkLinkNames: {},
+  getId: _dependencyVersionGetId,
+  getLinks: _dependencyVersionGetLinks,
+  attachLinks: _dependencyVersionAttachLinks,
+  serializeNative: _dependencyVersionSerializeNative,
+  deserializeNative: _dependencyVersionDeserializeNative,
+  deserializePropNative: _dependencyVersionDeserializePropNative,
+  serializeWeb: _dependencyVersionSerializeWeb,
+  deserializeWeb: _dependencyVersionDeserializeWeb,
+  deserializePropWeb: _dependencyVersionDeserializePropWeb,
+  version: 3,
 );
 
-class _DependencyVersionWebAdapter
-    extends IsarWebTypeAdapter<DependencyVersion> {
-  const _DependencyVersionWebAdapter();
-
-  @override
-  Object serialize(
-      IsarCollection<DependencyVersion> collection, DependencyVersion object) {
-    final jsObj = IsarNative.newJsObject();
-    IsarNative.jsObjectSet(jsObj, 'id', object.id);
-    IsarNative.jsObjectSet(jsObj, 'name', object.name);
-    IsarNative.jsObjectSet(
-        jsObj, 'preReleaseVersion', object.preReleaseVersion);
-    IsarNative.jsObjectSet(jsObj, 'preReleasing', object.preReleasing);
-    IsarNative.jsObjectSet(jsObj, 'stableVersion', object.stableVersion);
-    IsarNative.jsObjectSet(
-        jsObj, 'updateTime', object.updateTime.toUtc().millisecondsSinceEpoch);
-    return jsObj;
+int? _dependencyVersionGetId(DependencyVersion object) {
+  if (object.id == Isar.autoIncrement) {
+    return null;
+  } else {
+    return object.id;
   }
+}
 
-  @override
-  DependencyVersion deserialize(
-      IsarCollection<DependencyVersion> collection, dynamic jsObj) {
-    final object = DependencyVersion(
-      id: IsarNative.jsObjectGet(jsObj, 'id'),
-      name: IsarNative.jsObjectGet(jsObj, 'name') ?? '',
-      preReleaseVersion:
-          IsarNative.jsObjectGet(jsObj, 'preReleaseVersion') ?? '',
-      preReleasing: IsarNative.jsObjectGet(jsObj, 'preReleasing') ?? false,
-      stableVersion: IsarNative.jsObjectGet(jsObj, 'stableVersion') ?? '',
-      updateTime: IsarNative.jsObjectGet(jsObj, 'updateTime') != null
+List<IsarLinkBase> _dependencyVersionGetLinks(DependencyVersion object) {
+  return [];
+}
+
+void _dependencyVersionSerializeNative(
+    IsarCollection<DependencyVersion> collection,
+    IsarRawObject rawObj,
+    DependencyVersion object,
+    int staticSize,
+    List<int> offsets,
+    AdapterAlloc alloc) {
+  var dynamicSize = 0;
+  final value0 = object.name;
+  final _name = IsarBinaryWriter.utf8Encoder.convert(value0);
+  dynamicSize += (_name.length) as int;
+  final value1 = object.preReleaseVersion;
+  final _preReleaseVersion = IsarBinaryWriter.utf8Encoder.convert(value1);
+  dynamicSize += (_preReleaseVersion.length) as int;
+  final value2 = object.preReleasing;
+  final _preReleasing = value2;
+  final value3 = object.stableVersion;
+  final _stableVersion = IsarBinaryWriter.utf8Encoder.convert(value3);
+  dynamicSize += (_stableVersion.length) as int;
+  final value4 = object.updateTime;
+  final _updateTime = value4;
+  final size = staticSize + dynamicSize;
+
+  rawObj.buffer = alloc(size);
+  rawObj.buffer_length = size;
+  final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
+  final writer = IsarBinaryWriter(buffer, staticSize);
+  writer.writeBytes(offsets[0], _name);
+  writer.writeBytes(offsets[1], _preReleaseVersion);
+  writer.writeBool(offsets[2], _preReleasing);
+  writer.writeBytes(offsets[3], _stableVersion);
+  writer.writeDateTime(offsets[4], _updateTime);
+}
+
+DependencyVersion _dependencyVersionDeserializeNative(
+    IsarCollection<DependencyVersion> collection,
+    int id,
+    IsarBinaryReader reader,
+    List<int> offsets) {
+  final object = DependencyVersion(
+    id: id,
+    name: reader.readString(offsets[0]),
+    preReleaseVersion: reader.readString(offsets[1]),
+    preReleasing: reader.readBool(offsets[2]),
+    stableVersion: reader.readString(offsets[3]),
+    updateTime: reader.readDateTime(offsets[4]),
+  );
+  return object;
+}
+
+P _dependencyVersionDeserializePropNative<P>(
+    int id, IsarBinaryReader reader, int propertyIndex, int offset) {
+  switch (propertyIndex) {
+    case -1:
+      return id as P;
+    case 0:
+      return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readBool(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
+    case 4:
+      return (reader.readDateTime(offset)) as P;
+    default:
+      throw 'Illegal propertyIndex';
+  }
+}
+
+dynamic _dependencyVersionSerializeWeb(
+    IsarCollection<DependencyVersion> collection, DependencyVersion object) {
+  final jsObj = IsarNative.newJsObject();
+  IsarNative.jsObjectSet(jsObj, 'id', object.id);
+  IsarNative.jsObjectSet(jsObj, 'name', object.name);
+  IsarNative.jsObjectSet(jsObj, 'preReleaseVersion', object.preReleaseVersion);
+  IsarNative.jsObjectSet(jsObj, 'preReleasing', object.preReleasing);
+  IsarNative.jsObjectSet(jsObj, 'stableVersion', object.stableVersion);
+  IsarNative.jsObjectSet(
+      jsObj, 'updateTime', object.updateTime.toUtc().millisecondsSinceEpoch);
+  return jsObj;
+}
+
+DependencyVersion _dependencyVersionDeserializeWeb(
+    IsarCollection<DependencyVersion> collection, dynamic jsObj) {
+  final object = DependencyVersion(
+    id: IsarNative.jsObjectGet(jsObj, 'id'),
+    name: IsarNative.jsObjectGet(jsObj, 'name') ?? '',
+    preReleaseVersion: IsarNative.jsObjectGet(jsObj, 'preReleaseVersion') ?? '',
+    preReleasing: IsarNative.jsObjectGet(jsObj, 'preReleasing') ?? false,
+    stableVersion: IsarNative.jsObjectGet(jsObj, 'stableVersion') ?? '',
+    updateTime: IsarNative.jsObjectGet(jsObj, 'updateTime') != null
+        ? DateTime.fromMillisecondsSinceEpoch(
+                IsarNative.jsObjectGet(jsObj, 'updateTime'),
+                isUtc: true)
+            .toLocal()
+        : DateTime.fromMillisecondsSinceEpoch(0),
+  );
+  return object;
+}
+
+P _dependencyVersionDeserializePropWeb<P>(Object jsObj, String propertyName) {
+  switch (propertyName) {
+    case 'id':
+      return (IsarNative.jsObjectGet(jsObj, 'id')) as P;
+    case 'name':
+      return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
+    case 'preReleaseVersion':
+      return (IsarNative.jsObjectGet(jsObj, 'preReleaseVersion') ?? '') as P;
+    case 'preReleasing':
+      return (IsarNative.jsObjectGet(jsObj, 'preReleasing') ?? false) as P;
+    case 'stableVersion':
+      return (IsarNative.jsObjectGet(jsObj, 'stableVersion') ?? '') as P;
+    case 'updateTime':
+      return (IsarNative.jsObjectGet(jsObj, 'updateTime') != null
           ? DateTime.fromMillisecondsSinceEpoch(
                   IsarNative.jsObjectGet(jsObj, 'updateTime'),
                   isUtc: true)
               .toLocal()
-          : DateTime.fromMillisecondsSinceEpoch(0),
-    );
-    return object;
+          : DateTime.fromMillisecondsSinceEpoch(0)) as P;
+    default:
+      throw 'Illegal propertyName';
   }
-
-  @override
-  P deserializeProperty<P>(Object jsObj, String propertyName) {
-    switch (propertyName) {
-      case 'id':
-        return (IsarNative.jsObjectGet(jsObj, 'id')) as P;
-      case 'name':
-        return (IsarNative.jsObjectGet(jsObj, 'name') ?? '') as P;
-      case 'preReleaseVersion':
-        return (IsarNative.jsObjectGet(jsObj, 'preReleaseVersion') ?? '') as P;
-      case 'preReleasing':
-        return (IsarNative.jsObjectGet(jsObj, 'preReleasing') ?? false) as P;
-      case 'stableVersion':
-        return (IsarNative.jsObjectGet(jsObj, 'stableVersion') ?? '') as P;
-      case 'updateTime':
-        return (IsarNative.jsObjectGet(jsObj, 'updateTime') != null
-            ? DateTime.fromMillisecondsSinceEpoch(
-                    IsarNative.jsObjectGet(jsObj, 'updateTime'),
-                    isUtc: true)
-                .toLocal()
-            : DateTime.fromMillisecondsSinceEpoch(0)) as P;
-      default:
-        throw 'Illegal propertyName';
-    }
-  }
-
-  @override
-  void attachLinks(Isar isar, int id, DependencyVersion object) {}
 }
 
-class _DependencyVersionNativeAdapter
-    extends IsarNativeTypeAdapter<DependencyVersion> {
-  const _DependencyVersionNativeAdapter();
-
-  @override
-  void serialize(
-      IsarCollection<DependencyVersion> collection,
-      IsarRawObject rawObj,
-      DependencyVersion object,
-      int staticSize,
-      List<int> offsets,
-      AdapterAlloc alloc) {
-    var dynamicSize = 0;
-    final value0 = object.name;
-    final _name = IsarBinaryWriter.utf8Encoder.convert(value0);
-    dynamicSize += (_name.length) as int;
-    final value1 = object.preReleaseVersion;
-    final _preReleaseVersion = IsarBinaryWriter.utf8Encoder.convert(value1);
-    dynamicSize += (_preReleaseVersion.length) as int;
-    final value2 = object.preReleasing;
-    final _preReleasing = value2;
-    final value3 = object.stableVersion;
-    final _stableVersion = IsarBinaryWriter.utf8Encoder.convert(value3);
-    dynamicSize += (_stableVersion.length) as int;
-    final value4 = object.updateTime;
-    final _updateTime = value4;
-    final size = staticSize + dynamicSize;
-
-    rawObj.buffer = alloc(size);
-    rawObj.buffer_length = size;
-    final buffer = IsarNative.bufAsBytes(rawObj.buffer, size);
-    final writer = IsarBinaryWriter(buffer, staticSize);
-    writer.writeBytes(offsets[0], _name);
-    writer.writeBytes(offsets[1], _preReleaseVersion);
-    writer.writeBool(offsets[2], _preReleasing);
-    writer.writeBytes(offsets[3], _stableVersion);
-    writer.writeDateTime(offsets[4], _updateTime);
-  }
-
-  @override
-  DependencyVersion deserialize(IsarCollection<DependencyVersion> collection,
-      int id, IsarBinaryReader reader, List<int> offsets) {
-    final object = DependencyVersion(
-      id: id,
-      name: reader.readString(offsets[0]),
-      preReleaseVersion: reader.readString(offsets[1]),
-      preReleasing: reader.readBool(offsets[2]),
-      stableVersion: reader.readString(offsets[3]),
-      updateTime: reader.readDateTime(offsets[4]),
-    );
-    return object;
-  }
-
-  @override
-  P deserializeProperty<P>(
-      int id, IsarBinaryReader reader, int propertyIndex, int offset) {
-    switch (propertyIndex) {
-      case -1:
-        return id as P;
-      case 0:
-        return (reader.readString(offset)) as P;
-      case 1:
-        return (reader.readString(offset)) as P;
-      case 2:
-        return (reader.readBool(offset)) as P;
-      case 3:
-        return (reader.readString(offset)) as P;
-      case 4:
-        return (reader.readDateTime(offset)) as P;
-      default:
-        throw 'Illegal propertyIndex';
-    }
-  }
-
-  @override
-  void attachLinks(Isar isar, int id, DependencyVersion object) {}
-}
+void _dependencyVersionAttachLinks(
+    IsarCollection col, int id, DependencyVersion object) {}
 
 extension DependencyVersionByIndex on IsarCollection<DependencyVersion> {
   Future<DependencyVersion?> getByName(String name) {
@@ -1015,121 +980,99 @@ extension DependencyVersionByIndex on IsarCollection<DependencyVersion> {
 extension DependencyVersionQueryWhereSort
     on QueryBuilder<DependencyVersion, DependencyVersion, QWhere> {
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhere> anyId() {
-    return addWhereClauseInternal(const WhereClause(indexName: null));
+    return addWhereClauseInternal(const IdWhereClause.any());
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhere> anyName() {
-    return addWhereClauseInternal(const WhereClause(indexName: 'name'));
+    return addWhereClauseInternal(
+        const IndexWhereClause.any(indexName: 'name'));
   }
 }
 
 extension DependencyVersionQueryWhere
     on QueryBuilder<DependencyVersion, DependencyVersion, QWhereClause> {
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
-      idEqualTo(int? id) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [id],
+      idEqualTo(int id) {
+    return addWhereClauseInternal(IdWhereClause.between(
+      lower: id,
       includeLower: true,
-      upper: [id],
+      upper: id,
       includeUpper: true,
     ));
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
-      idNotEqualTo(int? id) {
+      idNotEqualTo(int id) {
     if (whereSortInternal == Sort.asc) {
-      return addWhereClauseInternal(WhereClause(
-        indexName: null,
-        upper: [id],
-        includeUpper: false,
-      )).addWhereClauseInternal(WhereClause(
-        indexName: null,
-        lower: [id],
-        includeLower: false,
-      ));
+      return addWhereClauseInternal(
+        IdWhereClause.lessThan(upper: id, includeUpper: false),
+      ).addWhereClauseInternal(
+        IdWhereClause.greaterThan(lower: id, includeLower: false),
+      );
     } else {
-      return addWhereClauseInternal(WhereClause(
-        indexName: null,
-        lower: [id],
-        includeLower: false,
-      )).addWhereClauseInternal(WhereClause(
-        indexName: null,
-        upper: [id],
-        includeUpper: false,
-      ));
+      return addWhereClauseInternal(
+        IdWhereClause.greaterThan(lower: id, includeLower: false),
+      ).addWhereClauseInternal(
+        IdWhereClause.lessThan(upper: id, includeUpper: false),
+      );
     }
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
-      idGreaterThan(
-    int? id, {
-    bool include = false,
-  }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [id],
-      includeLower: include,
-    ));
+      idGreaterThan(int id, {bool include = false}) {
+    return addWhereClauseInternal(
+      IdWhereClause.greaterThan(lower: id, includeLower: include),
+    );
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
-      idLessThan(
-    int? id, {
-    bool include = false,
-  }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      upper: [id],
-      includeUpper: include,
-    ));
+      idLessThan(int id, {bool include = false}) {
+    return addWhereClauseInternal(
+      IdWhereClause.lessThan(upper: id, includeUpper: include),
+    );
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
       idBetween(
-    int? lowerId,
-    int? upperId, {
+    int lowerId,
+    int upperId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
-    return addWhereClauseInternal(WhereClause(
-      indexName: null,
-      lower: [lowerId],
+    return addWhereClauseInternal(IdWhereClause.between(
+      lower: lowerId,
       includeLower: includeLower,
-      upper: [upperId],
+      upper: upperId,
       includeUpper: includeUpper,
     ));
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
       nameEqualTo(String name) {
-    return addWhereClauseInternal(WhereClause(
+    return addWhereClauseInternal(IndexWhereClause.equalTo(
       indexName: 'name',
-      lower: [name],
-      includeLower: true,
-      upper: [name],
-      includeUpper: true,
+      value: [name],
     ));
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterWhereClause>
       nameNotEqualTo(String name) {
     if (whereSortInternal == Sort.asc) {
-      return addWhereClauseInternal(WhereClause(
+      return addWhereClauseInternal(IndexWhereClause.lessThan(
         indexName: 'name',
         upper: [name],
         includeUpper: false,
-      )).addWhereClauseInternal(WhereClause(
+      )).addWhereClauseInternal(IndexWhereClause.greaterThan(
         indexName: 'name',
         lower: [name],
         includeLower: false,
       ));
     } else {
-      return addWhereClauseInternal(WhereClause(
+      return addWhereClauseInternal(IndexWhereClause.greaterThan(
         indexName: 'name',
         lower: [name],
         includeLower: false,
-      )).addWhereClauseInternal(WhereClause(
+      )).addWhereClauseInternal(IndexWhereClause.lessThan(
         indexName: 'name',
         upper: [name],
         includeUpper: false,
@@ -1150,7 +1093,7 @@ extension DependencyVersionQueryFilter
   }
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterFilterCondition>
-      idEqualTo(int? value) {
+      idEqualTo(int value) {
     return addFilterConditionInternal(FilterCondition(
       type: ConditionType.eq,
       property: 'id',
@@ -1160,7 +1103,7 @@ extension DependencyVersionQueryFilter
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterFilterCondition>
       idGreaterThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return addFilterConditionInternal(FilterCondition(
@@ -1173,7 +1116,7 @@ extension DependencyVersionQueryFilter
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterFilterCondition>
       idLessThan(
-    int? value, {
+    int value, {
     bool include = false,
   }) {
     return addFilterConditionInternal(FilterCondition(
@@ -1186,8 +1129,8 @@ extension DependencyVersionQueryFilter
 
   QueryBuilder<DependencyVersion, DependencyVersion, QAfterFilterCondition>
       idBetween(
-    int? lower,
-    int? upper, {
+    int lower,
+    int upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {

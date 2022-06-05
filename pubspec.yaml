@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -41,38 +41,37 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.4
 
-  # HTTP
-  # https://pub.dev/packages/chopper
-  chopper: ^4.0.5
-
   # https://pub.dev/packages/collection
-  collection: ^1.15.0
+  collection: ^1.16.0
+
+  # https://pub.dev/packages/dio
+  dio: ^4.0.6
 
   # State Management
   # https://pub.dev/packages/flutter_riverpod
-  flutter_riverpod: ^2.0.0-dev.5
+  flutter_riverpod: ^2.0.0-dev.9
 
   # Data Model
   # https://pub.dev/packages/freezed_annotation
-  freezed_annotation: ^1.1.0
+  freezed_annotation: ^2.0.3
   # https://pub.dev/packages/json_annotation
   # https://pub.dev/packages/json_serializable
-  json_annotation: ^4.4.0
+  json_annotation: ^4.5.0
 
   # https://pub.dev/packages/file_selector
-  file_selector: ^0.8.4+1
+  file_selector: ^0.8.4+2
 
   # Database
   # https://pub.dev/packages/isar
-  isar: ^2.2.1
-  isar_flutter_libs: ^2.2.1
+  isar: ^2.5.0
+  isar_flutter_libs: ^2.5.0
 
   # Log
   # https://pub.dev/packages/logger
   logger: ^1.1.0
 
   # https://pub.dev/packages/path_provider
-  path_provider: ^2.0.9
+  path_provider: ^2.0.10
 
   # https://pub.dev/packages/process
   process: ^4.2.4
@@ -84,16 +83,16 @@ dependencies:
   pubspec_parse: ^1.2.0
 
   # https://pub.dev/packages/shared_preferences
-  shared_preferences: ^2.0.13
+  shared_preferences: ^2.0.15
 
   # https://pub.dev/packages/url_launcher
-  url_launcher: ^6.0.20
+  url_launcher: ^6.1.2
 
   # https://pub.dev/packages/window_manager
-  window_manager: ^0.2.1
+  window_manager: ^0.2.3
 
   # https://pub.dev/packages/yaml_edit
-  yaml_edit: ^2.0.2
+  yaml_edit: ^2.0.3
 
 
 
@@ -102,19 +101,16 @@ dev_dependencies:
     sdk: flutter
 
   # https://pub.dev/packages/build_runner
-  build_runner: ^2.1.8
-
-  # https://pub.dev/packages/chopper_generator
-  chopper_generator: ^4.0.5
+  build_runner: ^2.1.11
 
   # https://pub.dev/packages/freezed
-  freezed: ^1.1.1
+  freezed: ^2.0.3+1
 
   # https://pub.dev/packages/isar
-  isar_generator: ^2.2.1
+  isar_generator: ^2.5.0
 
   # https://pub.dev/packages/json_serializable
-  json_serializable: ^6.1.5
+  json_serializable: ^6.2.0
 
   # https://pub.dev/packages/lint
   lint: ^1.8.2

@@ -24,7 +24,6 @@ class _IndexPageState extends ConsumerState<IndexPage> {
       body: Row(
         children: [
           NavigationRail(
-            useIndicator: false,
             backgroundColor: const Color.fromARGB(255, 239, 239, 239),
             destinations: const [
               NavigationRailDestination(icon: Icon(Icons.folder), label: Text('Flutter')),

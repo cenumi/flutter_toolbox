@@ -56,7 +56,7 @@ packages:
       name: build_daemon
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.0"
   build_resolvers:
     dependency: transitive
     description:
@@ -70,7 +70,7 @@ packages:
       name: build_runner
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.8"
+    version: "2.1.11"
   build_runner_core:
     dependency: transitive
     description:
@@ -113,20 +113,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
-  chopper:
-    dependency: "direct main"
-    description:
-      name: chopper
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.0.5"
-  chopper_generator:
-    dependency: "direct dev"
-    description:
-      name: chopper_generator
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.0.5"
   clock:
     dependency: transitive
     description:
@@ -190,6 +176,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  dio:
+    dependency: "direct main"
+    description:
+      name: dio
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -217,7 +210,7 @@ packages:
       name: file_selector
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.8.4+1"
+    version: "0.8.4+2"
   file_selector_macos:
     dependency: transitive
     description:
@@ -269,7 +262,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0-dev.5"
+    version: "2.0.0-dev.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -286,14 +279,14 @@ packages:
       name: freezed
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "2.0.3+1"
   freezed_annotation:
     dependency: "direct main"
     description:
       name: freezed_annotation
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.3"
   frontend_server_client:
     dependency: transitive
     description:
@@ -356,21 +349,21 @@ packages:
       name: isar
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.1"
+    version: "2.5.0"
   isar_flutter_libs:
     dependency: "direct main"
     description:
       name: isar_flutter_libs
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.1"
+    version: "2.5.0"
   isar_generator:
     dependency: "direct dev"
     description:
       name: isar_generator
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.1"
+    version: "2.5.0"
   js:
     dependency: transitive
     description:
@@ -384,14 +377,14 @@ packages:
       name: json_annotation
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.1.5"
+    version: "6.2.0"
   lint:
     dependency: "direct dev"
     description:
@@ -461,7 +454,7 @@ packages:
       name: path_provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.9"
+    version: "2.0.10"
   path_provider_android:
     dependency: transitive
     description:
@@ -552,14 +545,14 @@ packages:
       name: riverpod
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.0-dev.5"
+    version: "2.0.0-dev.9"
   shared_preferences:
     dependency: "direct main"
     description:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.13"
+    version: "2.0.15"
   shared_preferences_android:
     dependency: transitive
     description:
@@ -725,7 +718,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.20"
+    version: "6.1.2"
   url_launcher_android:
     dependency: transitive
     description:
@@ -809,7 +802,7 @@ packages:
       name: window_manager
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.1"
+    version: "0.2.3"
   xdg_directories:
     dependency: transitive
     description:
@@ -830,7 +823,7 @@ packages:
       name: yaml_edit
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
 sdks:
   dart: ">=2.17.0 <3.0.0"
-  flutter: ">=2.10.0"
+  flutter: ">=3.0.0"
