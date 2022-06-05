@@ -18,7 +18,6 @@ class _DependencyListView extends StatelessWidget {
         final item = dependencies!.entries.elementAt(index);
         final name = item.key;
         final dependency = item.value;
-
         if (dependency is HostedDependency) {
           return _HostedDependencyItem(name: name, dependency: dependency, isDevDependency: isDevDependencies);
         }

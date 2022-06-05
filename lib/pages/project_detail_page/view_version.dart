@@ -81,7 +81,7 @@ class _PickerState extends State<_Picker> {
   @override
   void didUpdateWidget(covariant _Picker oldWidget) {
     super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _controller.jumpToItem(widget.versionPart);
     });
   }
